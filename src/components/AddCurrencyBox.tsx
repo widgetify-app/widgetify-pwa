@@ -44,7 +44,7 @@ export function SelectCurrencyModal({ setShow, show }: AddCurrencyModalProps) {
 				open={show}
 				handler={onClose}
 				size="xs"
-				className="backdrop:bg-transparent !bg-none"
+				className="custom-dialog"
 			>
 				<DialogHeader>این مدال است.</DialogHeader>
 				<DialogBody className="font-[vazir]">
