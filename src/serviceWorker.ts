@@ -21,14 +21,12 @@
 // )
 
 export function register() {
-	if (process.env.PUBLIC_URL) {
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker
-				.register('/sw.js')
-				.then((reg) => {
-					console.log('register.. ', reg)
-				})
-				.catch(console.log)
-		}
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker
+			.register('/sw.js')
+			.then((reg) => {
+				console.log('register.. ', reg)
+			})
+			.catch(console.log)
 	}
 }
