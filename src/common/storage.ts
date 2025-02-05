@@ -1,10 +1,10 @@
-import type { StoreKey } from './constant/store.key'
+import type { StoreKeyType } from './constant/store.key'
 
-export function setToStorage<T>(key: StoreKey, value: T) {
+export function setToStorage<T>(key: StoreKeyType, value: T) {
 	localStorage.setItem(key, JSON.stringify(value))
 }
 
-export function getFromStorage<T>(key: StoreKey): T | null {
+export function getFromStorage<T>(key: StoreKeyType): T | null {
 	const value = localStorage.getItem(key)
 	if (!value) return null
 	try {

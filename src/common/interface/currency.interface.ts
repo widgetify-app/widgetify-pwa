@@ -6,4 +6,5 @@ export interface Currency {
 	icon: string
 	price: number
 	rialPrice: number
+	changePercentage: number | null
 }
