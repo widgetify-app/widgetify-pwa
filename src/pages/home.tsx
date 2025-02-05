@@ -3,9 +3,9 @@ import { IoPulse } from 'react-icons/io5'
 import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { AddCurrencyBox } from '../components/AddCurrencyBox'
+import { CurrencyBox } from '../components/CurrencyBox'
 import { storeContext } from '../context/setting.context'
 import { useGetSupportCurrencies } from '../services/getMethodHooks/getSupportCurrencies.hook'
-import { CurrencyBox } from '../components/CurrencyBox'
 
 export function HomePage() {
 	const [selectedCurrencies, setSelectedCurrencies] = useState<Array<string>>(
