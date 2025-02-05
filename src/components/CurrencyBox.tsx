@@ -69,11 +69,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 
 	useEffect(() => {
 		const unsubscribe = animatedPrice.on('change', (v) => {
-			if (v !== 0) {
-				setDisplayPrice(Math.round(v))
-			} else {
-				setDisplayPrice(null)
-			}
+			setDisplayPrice(Math.round(v))
 
 			const diff = Math.abs(v - (currency?.rialPrice || 0))
 			setDamping(diff < 5 ? 50 : defaultDamping)
@@ -108,7 +104,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			</div>
 
 			<div className="relative w-full">
-				<motion.p className="text-[1.2rem] text-gray-500 dark:text-gray-200 font-[balooTamma]">
+				<motion.p className="text-[1.1rem] text-gray-500 dark:text-gray-200 font-[balooTamma]">
 					{displayPrice !== 0 ? displayPrice.toLocaleString() : ''}
 					{currency?.changePercentage ? (
 						<span
