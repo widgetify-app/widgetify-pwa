@@ -25,8 +25,8 @@ export function HomePage() {
 				setSelectedCurrencies,
 			}}
 		>
-			<section className="p-2 rounded shadow bg-neutral-100 dark:bg-neutral-800">
-				<h2 className="flex gap-1 mb-4 text-lg font-semibold dark:text-gray-200">
+			<section className="p-2 mx-1 rounded shadow lg:mx-4 bg-neutral-100 dark:bg-neutral-800">
+				<h2 className="flex items-center gap-1 mb-4 text-lg font-semibold dark:text-gray-200">
 					<IoPulse /> Currency Rates
 				</h2>
 				<div className="grid grid-cols-2 gap-2 p-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
