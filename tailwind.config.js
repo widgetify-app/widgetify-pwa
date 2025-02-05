@@ -1,11 +1,11 @@
-const withMT = require("@material-tailwind/react/utils/withMT");
-
-module.exports = withMT({
+module.exports = {
   content: [
-    "./index.html",
-    './src/**/*.{js,jsx,ts,tsx}',
-    './node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}',
-    './node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}',
+    "./src/**/*.{js,jsx,ts,tsx}",
+    './**/node_modules/react-tailwindcss-select/**/*/*.esm.js',
+    "./index.html"
   ],
-  darkMode: 'class',
-});
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}

@@ -1,12 +1,18 @@
-import {
-	Button,
-	Dialog,
-	DialogBody,
-	DialogFooter,
-	DialogHeader,
-} from '@material-tailwind/react'
 import { useEffect, useState } from 'react'
 import { TiPlus } from 'react-icons/ti'
+import { getFromStorage, setToStorage } from '../common/storage'
+import { useGetSupportCurrencies } from '../services/getMethodHooks/getSupportCurrencies.hook'
+import { MultiSelectDropdown } from './selectbox/multiSelectDropdown.component'
+
+export type SupportedCurrencies = {
+	key: string
+	type: 'coin' | 'crypto' | 'currency'
+	country?: string
+	label: {
+		fa: string
+		en: string
+	}
+}[]
 
 export const AddCurrencyBox = () => {
 	const [showModal, setShowModal] = useState(false)
@@ -35,36 +41,110 @@ interface AddCurrencyModalProps {
 }
 
 export function SelectCurrencyModal({ setShow, show }: AddCurrencyModalProps) {
-	const handleOpen = () => setShow(!open)
+	const [currencies, setCurrencies] = useState<string[]>(
+		getFromStorage('currencies') || [],
+	)
+
+	const { isLoading, data } = useGetSupportCurrencies()
+
 	const onClose = () => setShow(false)
 
-	return (
-		<>
-			<Dialog
-				open={show}
-				handler={onClose}
-				size="xs"
-				className="custom-dialog"
-			>
-				<DialogHeader>این مدال است.</DialogHeader>
-				<DialogBody className="font-[vazir]">
-					لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-					از طراحان گرافیک است.
-				</DialogBody>
-				<DialogFooter>
-					<Button
-						variant="text"
-						color="red"
-						onClick={handleOpen}
-						className="mr-1"
+	function onCurrencyChange(values: string[]) {
+		setToStorage('currencies', values)
+		setCurrencies([])
+		setCurrencies(values)
+	}
+
+	return show ? (
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+			<div className="w-full max-w-sm p-6 bg-white shadow-xl rounded-2xl dark:bg-neutral-800">
+				<div className="flex items-center justify-between mb-4">
+					<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+						Select Currency
+					</h2>
+					<button
+						onClick={onClose}
+						className="w-8 text-2xl text-gray-600 rounded cursor-pointer hover:bg-red-500/80 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100"
 					>
-						<span>Cancel</span>
-					</Button>
-					<Button variant="gradient" color="green" onClick={handleOpen}>
-						<span>Confirm</span>
-					</Button>
-				</DialogFooter>
-			</Dialog>
-		</>
-	)
+						&times;
+					</button>
+				</div>
+				<div>
+					{isLoading ? (
+						<p className="text-center text-gray-600 dark:text-gray-300">
+							Loading...
+						</p>
+					) : (
+						<MultiSelectDropdown
+							options={getCurrencyOptions(data || []) as any}
+							values={getSelectedCurrencies(currencies, data || [])}
+							isMultiple={true}
+							limit={4}
+							onChange={(values) => onCurrencyChange(values)}
+							color={'blue'}
+						/>
+					)}
+				</div>
+			</div>
+		</div>
+	) : null
+}
+
+interface Option {
+	label: string
+	options: {
+		value: string
+		label: string
+	}[]
+}
+function getCurrencyOptions(supported: SupportedCurrencies): Option[] {
+	const keys = Object.keys(supported)
+
+	const isCrypto = keys
+		.map((key) => Number(key))
+		.filter((index) => supported[index].type === 'crypto')
+	const isCurrency = keys
+		.map((key) => Number(key))
+		.filter((index) => supported[index].type === 'currency')
+	const supportedCoins = keys
+		.map((key) => Number(key))
+		.filter((index) => supported[index].type === 'coin')
+
+	const options = [
+		{
+			label: '🪙 ارزهای دیجیتال',
+			options: isCrypto.map((indx) => ({
+				value: supported[indx].key,
+				label: supported[indx].label.fa,
+			})),
+		},
+		{
+			label: '💵 ارزها',
+			options: isCurrency.map((key) => ({
+				value: supported[key].key,
+				label: supported[key].label.fa,
+			})),
+		},
+		{
+			label: '🥇 طلا و سکه',
+			options: supportedCoins.map((indx) => ({
+				value: supported[indx].key,
+				label: supported[indx].label.fa,
+			})),
+		},
+	]
+
+	return options
+}
+
+function getSelectedCurrencies(
+	selected: string[],
+	list: SupportedCurrencies,
+): { value: string; label: string }[] {
+	console.log(selected, list)
+	return selected.map((key) => ({
+		value: key,
+		// biome-ignore lint/suspicious/noDoubleEquals: <explanation>
+		label: list.find((item) => item.key == key)?.label?.fa || '',
+	}))
 }
