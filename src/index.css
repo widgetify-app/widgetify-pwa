@@ -83,11 +83,7 @@
 	src: url("./assets/fonts/BalooTamma/BalooTamma2-Bold.ttf");
 }
 
-@font-face {
-	font-family: digital7;
-	font-weight: 600;
-	src: url("./assets/fonts/digital-7/digital-7.ttf");
-}
+
 
 body {
 	overflow-x: hidden;

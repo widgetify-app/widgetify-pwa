@@ -69,14 +69,14 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 
 	useEffect(() => {
 		const unsubscribe = animatedPrice.on('change', (v) => {
-			setDisplayPrice(Math.round(v))
+			if (v !== 0) {
+				setDisplayPrice(Math.round(v))
+			} else {
+				setDisplayPrice(null)
+			}
 
 			const diff = Math.abs(v - (currency?.rialPrice || 0))
-			if (diff < 5) {
-				setDamping(50)
-			} else {
-				setDamping(defaultDamping)
-			}
+			setDamping(diff < 5 ? 50 : defaultDamping)
 		})
 		return () => unsubscribe()
 	}, [animatedPrice, currency?.rialPrice])
@@ -108,9 +108,9 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			</div>
 
 			<div className="relative w-full">
-				<motion.p className="text-[1.2rem] text-gray-500 dark:text-gray-200">
-					{displayPrice.toLocaleString()}
-					{currency?.changePercentage && (
+				<motion.p className="text-[1.2rem] text-gray-500 dark:text-gray-200 font-[balooTamma]">
+					{displayPrice !== 0 ? displayPrice.toLocaleString() : ''}
+					{currency?.changePercentage ? (
 						<span
 							className={`absolute -top-4 -left-2 text-xs font-normal ml-1 flex  ${
 								priceChange > 0 ? 'text-red-500' : 'text-green-500'
@@ -119,7 +119,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 							{priceChange > 0 ? <FaArrowUpLong /> : <FaArrowDownLong />}
 							{Number(priceChange.toFixed()).toLocaleString('fa-IR')}{' '}
 						</span>
-					)}
+					) : null}
 				</motion.p>
 			</div>
 		</div>
