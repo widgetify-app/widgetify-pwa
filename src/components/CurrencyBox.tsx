@@ -17,17 +17,19 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 	)
 
 	const [imgColor, setImgColor] = useState<string>()
-
-	const priceMotion = useMotionValue(0)
-	const animatedPrice = useSpring(priceMotion, {
-		stiffness: 100,
-		damping: 20,
-	})
-
 	const [displayPrice, setDisplayPrice] = useState(0)
 	const [priceChange, setPriceChange] = useState(0)
 
 	const prevPriceRef = useRef<number | null>(null)
+
+	const priceMotion = useMotionValue(0)
+	const defaultDamping = 20
+	const [damping, setDamping] = useState(defaultDamping)
+
+	const animatedPrice = useSpring(priceMotion, {
+		stiffness: 100,
+		damping,
+	})
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
@@ -68,9 +70,16 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 	useEffect(() => {
 		const unsubscribe = animatedPrice.on('change', (v) => {
 			setDisplayPrice(Math.round(v))
+
+			const diff = Math.abs(v - (currency?.rialPrice || 0))
+			if (diff < 5) {
+				setDamping(50)
+			} else {
+				setDamping(defaultDamping)
+			}
 		})
 		return () => unsubscribe()
-	}, [animatedPrice])
+	}, [animatedPrice, currency?.rialPrice])
 
 	return (
 		<div className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm sm:w-32 dark:bg-neutral-700 w-36">
@@ -82,8 +91,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 						className="object-cover w-4 h-4 rounded-full contrast-60"
 					/>
 					<div
-						className={`
-           w-5 h-5 absolute rounded-full z-0 left-1.5  blur-lg`}
+						className={'w-5 h-5 absolute rounded-full z-0 left-1.5 blur-lg'}
 						style={{
 							backgroundImage: `radial-gradient(50% 50% at 50% 50%, ${imgColor} 55%, ${`${imgColor}00`} 100%)`,
 						}}
@@ -100,7 +108,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			</div>
 
 			<div className="relative w-full">
-				<motion.p className=" text-[1.2rem] text-gray-500 dark:text-gray-200">
+				<motion.p className="text-[1.2rem] text-gray-500 dark:text-gray-200">
 					{displayPrice.toLocaleString()}
 					{currency?.changePercentage && (
 						<span
