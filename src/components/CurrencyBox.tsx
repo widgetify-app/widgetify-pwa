@@ -1,11 +1,11 @@
+import type { Currency } from '../common/interface/currency.interface'
+
 interface CurrencyBoxProps {
-	name: string
-	todyPrice: string
-	icon: string
-	changePercentage: number
+	currency: Currency
 }
 
-export const CurrencyBox = ({ name, todyPrice, icon }: CurrencyBoxProps) => {
+export const CurrencyBox = ({ currency }: CurrencyBoxProps) => {
+	const { changePercentage, icon, name, todyPrice } = currency
 	return (
 		<div className="flex flex-col items-center justify-between h-20 p-2 mt-2 bg-white rounded-lg shadow-sm dark:bg-neutral-700 w-36">
 			<div className="flex flex-row items-center justify-between w-full px-2">
