@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { TiPlus } from 'react-icons/ti'
-import { StoreKey } from '../common/constant/store.key'
-import { getFromStorage, setToStorage } from '../common/storage'
 import { storeContext } from '../context/setting.context'
 import { MultiSelectDropdown } from './selectBox/multiSelectDropdown.component'
 

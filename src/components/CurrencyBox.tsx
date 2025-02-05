@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { FaArrowDownLong, FaArrowUpLong } from 'react-icons/fa6'
 import { getMainColorFromImage } from '../common/color'
 import type { Currency } from '../common/interface/currency.interface'
-import { getFromStorage } from '../common/storage'
+import { getFromStorage, setToStorage } from '../common/storage'
 import { useGetCurrencyByCode } from '../services/getMethodHooks/getCurrencyByCode.hook'
 
 interface CurrencyBoxProps {
@@ -11,7 +11,7 @@ interface CurrencyBoxProps {
 }
 
 export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
-	const { data, isLoading, refetch, dataUpdatedAt } = useGetCurrencyByCode(code)
+	const { data, refetch, dataUpdatedAt } = useGetCurrencyByCode(code)
 	const [currency, setCurrency] = useState<Currency | null>(
 		getFromStorage<Currency>(`currency:${code}`) || null,
 	)
@@ -39,10 +39,8 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 
 	useEffect(() => {
 		if (data) {
-			console.log(data, Date.now())
 			setCurrency(data)
-		} else {
-			console.log('No data', Date.now())
+			setToStorage(`currency:${code}`, data)
 		}
 	}, [dataUpdatedAt])
 

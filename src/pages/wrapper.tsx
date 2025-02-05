@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { Toaster } from 'react-hot-toast'
 import { NavbarLayout } from '../layouts/navbar/navbar.layout'
 
@@ -8,9 +6,6 @@ interface Props {
 }
 
 export function PageWrapper(props: Props) {
-	const [isLogged, setIsLogged] = useState(false)
-	const [isFetching, setIsFetching] = useState(false)
-
 	return (
 		<div className="h-screen overflow-auto">
 			{/* <userContext.Provider value={userContextValue}> */}
