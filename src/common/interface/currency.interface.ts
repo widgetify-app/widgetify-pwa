@@ -1,6 +1,9 @@
 export interface Currency {
-	name: string
-	todyPrice: string
+	name: {
+		fa: string
+		en: string
+	}
 	icon: string
-	changePercentage: number
+	price: number
+	rialPrice: number
 }

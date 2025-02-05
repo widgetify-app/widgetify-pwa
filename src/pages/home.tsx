@@ -5,6 +5,7 @@ import { getFromStorage, setToStorage } from '../common/storage'
 import { AddCurrencyBox } from '../components/AddCurrencyBox'
 import { storeContext } from '../context/setting.context'
 import { useGetSupportCurrencies } from '../services/getMethodHooks/getSupportCurrencies.hook'
+import { CurrencyBox } from '../components/CurrencyBox'
 
 export function HomePage() {
 	const [selectedCurrencies, setSelectedCurrencies] = useState<Array<string>>(
@@ -29,9 +30,9 @@ export function HomePage() {
 					<IoPulse /> Currency Rates
 				</h2>
 				<div className="flex flex-row flex-wrap px-4 space-x-2">
-					{/* {currencyData.map((currency, index) => (
-						<CurrencyBox key={index} currency={currency} />
-					))} */}
+					{selectedCurrencies.map((currency, index) => (
+						<CurrencyBox key={index} code={currency} />
+					))}
 					<AddCurrencyBox loading={isLoading} supportCurrencies={data || []} />
 				</div>
 			</section>
