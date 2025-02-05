@@ -9,6 +9,7 @@ export type SupportedCurrencies = {
 		fa: string
 		en: string
 	}
+	changePercentage: number
 }[]
 
 export const useGetSupportCurrencies = () => {

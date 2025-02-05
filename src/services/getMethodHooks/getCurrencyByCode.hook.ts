@@ -9,6 +9,7 @@ export interface FetchedCurrency {
 	icon: string
 	price: number
 	rialPrice: number
+	changePercentage: number
 }
 
 export const useGetCurrencyByCode = (currency: string) => {

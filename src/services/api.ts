@@ -6,7 +6,8 @@ const rawGithubApi = axios.create({
 
 export async function getMainApi(): Promise<AxiosInstance> {
 	if (import.meta.env.VITE_API) {
-		return import.meta.env.VITE_API
+		// return import.meta.env.VITE_API
+		return axios.create({ baseURL: import.meta.env.VITE_API })
 	}
 
 	const urlResponse = await rawGithubApi.get('/.github/api.txt')

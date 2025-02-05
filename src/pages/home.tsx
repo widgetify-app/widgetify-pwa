@@ -25,14 +25,15 @@ export function HomePage() {
 				setSelectedCurrencies,
 			}}
 		>
-			<section className="p-4 rounded shadow bg-neutral-100 dark:bg-neutral-800">
+			<section className="p-2 rounded shadow bg-neutral-100 dark:bg-neutral-800">
 				<h2 className="flex gap-1 mb-4 text-lg font-semibold dark:text-gray-200">
 					<IoPulse /> Currency Rates
 				</h2>
-				<div className="flex flex-row flex-wrap px-4 space-x-2">
+				<div className="grid grid-cols-2 gap-2 p-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
 					{selectedCurrencies.map((currency, index) => (
 						<CurrencyBox key={index} code={currency} />
 					))}
+
 					<AddCurrencyBox loading={isLoading} supportCurrencies={data || []} />
 				</div>
 			</section>
