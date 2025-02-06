@@ -1,6 +1,5 @@
 import jalaliMoment from 'jalali-moment'
 import { useContext, useEffect, useState } from 'react'
-import { FaRegClock } from 'react-icons/fa6'
 import { AddCurrencyBox } from '../../components/AddCurrencyBox'
 import { CurrencyBox } from '../../components/CurrencyBox'
 import { storeContext } from '../../context/setting.context'
