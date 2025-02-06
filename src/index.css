@@ -121,7 +121,7 @@ body {
 }
 
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
 	body {
 		background: #333;
 		color: white;
@@ -133,10 +133,11 @@ body {
 		background: #ddd;
 		color: black;
 	}
-} */
-body {
-	background: #333;
 }
+
+/* body {
+	background: #333;
+} */
 
 
 .modal-backdrop {
