@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { IoPulse } from 'react-icons/io5'
 import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { AddCurrencyBox } from '../components/AddCurrencyBox'
@@ -20,10 +21,13 @@ export function HomePage() {
 			//@ts-ignore
 			window.navigator.standalone
 
-		if (!isStandalone) {
+		const hasShownPwaModal = getFromStorage(StoreKey.hasShownPwaModal)
+
+		if (!isStandalone && !hasShownPwaModal) {
 			const timer = setTimeout(() => {
 				setShowPwaModal(true)
-			}, 5000) // Show modal after 5 seconds
+				setToStorage(StoreKey.hasShownPwaModal, true)
+			}, 10000) // Show modal after 10 seconds
 
 			return () => clearTimeout(timer)
 		}
@@ -43,8 +47,8 @@ export function HomePage() {
 			}}
 		>
 			<section className="p-2 mx-1 rounded shadow lg:mx-4 bg-neutral-100 dark:bg-neutral-800">
-				<h2 className="flex  items-center text-center gap-1 mb-4 text-lg font-semibold dark:text-gray-200 font-[balooTamma]">
-					🪙 ArzLive
+				<h2 className="flex items-center gap-1 mb-4 text-lg font-semibold dark:text-gray-200">
+					<IoPulse /> نرخ ارزها
 				</h2>
 				<div className="grid grid-cols-2 gap-2 p-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
 					{selectedCurrencies.map((currency, index) => (
