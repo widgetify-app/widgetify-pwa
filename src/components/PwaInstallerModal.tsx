@@ -7,8 +7,13 @@ interface PwaInstallerModalProps {
 
 export const PwaInstallerModal = ({ show, onClose }: PwaInstallerModalProps) => {
 	const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+	const [isIos, setIsIos] = useState(false)
 
 	useEffect(() => {
+		const userAgent = window.navigator.userAgent.toLowerCase()
+		const isIosDevice = /iphone|ipad|ipod/.test(userAgent)
+		setIsIos(isIosDevice)
+
 		const handleBeforeInstallPrompt = (e: any) => {
 			e.preventDefault()
 			setDeferredPrompt(e)
@@ -55,15 +60,24 @@ export const PwaInstallerModal = ({ show, onClose }: PwaInstallerModalProps) => 
 					</button>
 				</div>
 				<div>
-					<p className="mb-4 text-gray-700 dark:text-gray-300">
-						برای نصب اپلیکیشن ویجتیفای روی دستگاه خود، روی دکمه زیر کلیک کنید.
-					</p>
-					<button
-						onClick={handleInstallClick}
-						className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
-					>
-						نصب اپلیکیشن
-					</button>
+					{isIos ? (
+						<p className="mb-4 text-gray-700 dark:text-gray-300">
+							برای نصب اپلیکیشن ویجتیفای روی دستگاه خود، از دکمه اشتراک‌گذاری در مرورگر
+							Safari استفاده کنید و گزینه "Add to Home Screen" را انتخاب کنید.
+						</p>
+					) : (
+						<>
+							<p className="mb-4 text-gray-700 dark:text-gray-300">
+								برای نصب اپلیکیشن ویجتیفای روی دستگاه خود، روی دکمه زیر کلیک کنید.
+							</p>
+							<button
+								onClick={handleInstallClick}
+								className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+							>
+								نصب اپلیکیشن
+							</button>
+						</>
+					)}
 				</div>
 			</div>
 		</div>
