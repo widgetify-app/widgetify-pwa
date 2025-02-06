@@ -79,9 +79,32 @@
 
 @font-face {
 	font-family: balooTamma;
-
 	src: url("./assets/fonts/BalooTamma/BalooTamma2-Bold.ttf");
+	font-weight: 700;
+	font-style: bold;
 }
+
+@font-face {
+	font-family: balooTamma;
+	src: url("./assets/fonts/BalooTamma/BalooTamma2-Medium.ttf");
+	font-weight: 500;
+	font-style: medium;
+}
+
+@font-face {
+	font-family: balooTamma;
+	src: url("./assets/fonts/BalooTamma/BalooTamma2-Regular.ttf");
+	font-weight: 400;
+	font-style: regular;
+}
+
+@font-face {
+	font-family: balooTamma;
+	src: url("./assets/fonts/BalooTamma/BalooTamma2-SemiBold.ttf");
+	font-weight: 600;
+	font-style: semibold;
+}
+
 
 
 
@@ -113,4 +136,10 @@ body {
 } */
 body {
 	background: #333;
+}
+
+
+.modal-backdrop {
+	background-color: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(5px);
 }

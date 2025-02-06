@@ -7,9 +7,9 @@ export interface PageLink {
 
 export function NavbarLayout(): JSX.Element {
 	return (
-		<nav className="flex items-center justify-between px-4 py-2 bg-[#212121] shadow mb-5">
+		<nav className="flex items-center justify-between px-4 py-2 bg-[#212121]  shadow mb-5">
 			<div className="flex items-center gap-1">
-				<h1 className="text-2xl font-bold text-blue-400 font-[balooTamma] tracking-wide">
+				<h1 className="text-2xl  text-blue-400 font-[balooTamma] tracking-wide font-extrabold">
 					Widgetify
 				</h1>
 				<p className="text-xs text-blue-200 font-[balooTamma] mt-1">v0</p>

@@ -104,17 +104,17 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			</div>
 
 			<div className="relative w-full">
-				<motion.p className="text-[1.1rem] text-gray-500 dark:text-gray-200 font-[balooTamma]">
+				<motion.p className="text-[1.1rem] text-gray-500 dark:text-gray-200 font-[balooTamma] font-bold">
 					{displayPrice !== 0 ? displayPrice.toLocaleString() : ''}
 					{currency?.changePercentage ? (
-						<span
-							className={`absolute -top-4 -left-2 text-xs font-normal ml-1 flex  ${
+						<div
+							className={`absolute -top-4 -left-2 text-xs  ml-1 flex ${
 								priceChange > 0 ? 'text-red-500' : 'text-green-500'
 							}`}
 						>
 							{priceChange > 0 ? <FaArrowUpLong /> : <FaArrowDownLong />}
-							{Number(priceChange.toFixed()).toLocaleString('fa-IR')}{' '}
-						</span>
+							<p className="">{Number(priceChange.toFixed()).toLocaleString()}</p>
+						</div>
 					) : null}
 				</motion.p>
 			</div>
