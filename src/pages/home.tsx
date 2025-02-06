@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
-import { PwaInstallerModal } from '../components/PwaInstallerModal'
+import { PwaInstallerModal } from '../components/pwaInstaller-modal'
 import { storeContext } from '../context/setting.context'
 import { ArzLiveLayout } from '../layouts/arzLive/arzLive.layout'
 

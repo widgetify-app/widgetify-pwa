@@ -5,7 +5,7 @@ import { getMainColorFromImage } from '../common/color'
 import type { Currency } from '../common/interface/currency.interface'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { useGetCurrencyByCode } from '../services/getMethodHooks/getCurrencyByCode.hook'
-
+import ms from 'ms'
 interface CurrencyBoxProps {
 	code: string
 }
@@ -34,7 +34,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
 			refetch()
-		}, 10000) //every 10 seconds
+		}, ms('5m')) // 1 minute
 
 		return () => clearInterval(intervalId)
 	}, [refetch])

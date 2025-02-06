@@ -1,17 +1,21 @@
 import jalaliMoment from 'jalali-moment'
 import { useContext, useEffect, useState } from 'react'
-import { AddCurrencyBox } from '../../components/AddCurrencyBox'
-import { CurrencyBox } from '../../components/CurrencyBox'
+import { StoreKey } from '../../common/constant/store.key'
+import { AddCurrencyBox } from '../../components/addCurrency-box'
+import { CurrencyBox } from '../../components/currency-box'
 import { storeContext } from '../../context/setting.context'
 import { useGetSupportCurrencies } from '../../services/getMethodHooks/getSupportCurrencies.hook'
 export function ArzLiveLayout() {
 	const { isLoading, data } = useGetSupportCurrencies()
 	const { selectedCurrencies } = useContext(storeContext)
-	const [updatedAt, setUpdatedAt] = useState(new Date())
+	const [updatedAt, setUpdatedAt] = useState(
+		localStorage.getItem(StoreKey.CURRENCY_UPDATED_AT) || new Date(),
+	)
 
 	useEffect(() => {
 		function handleUpdatedAt() {
 			setUpdatedAt(new Date())
+			localStorage.setItem(StoreKey.CURRENCY_UPDATED_AT, new Date().toString())
 		}
 
 		window.addEventListener('fetched-data', handleUpdatedAt)
