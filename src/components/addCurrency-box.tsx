@@ -69,18 +69,15 @@ export function SelectCurrencyModal({
 	}
 
 	return show ? (
-		<div className="fixed inset-0 z-50 flex items-start justify-center p-2 bg-black/60 backdrop-blur-sm">
-			<div className="w-full max-w-sm p-6 bg-white shadow-xl rounded-2xl dark:bg-neutral-800">
+		<div
+			className="fixed inset-0 z-50 flex items-start justify-center p-2 bg-black/60 backdrop-blur-sm"
+			dir="rtl"
+		>
+			<div className="w-full max-w-sm p-4   rounded shadow-xl bg-[#f2f2f2] dark:bg-[#262626]">
 				<div className="flex items-center justify-between mb-4">
 					<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-						Select Currency
+						افزودن ارز
 					</h2>
-					<button
-						onClick={onClose}
-						className="w-8 text-2xl text-gray-600 rounded cursor-pointer hover:bg-red-500/80 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100"
-					>
-						&times;
-					</button>
 				</div>
 				<div>
 					<MultiSelectDropdown
@@ -89,9 +86,18 @@ export function SelectCurrencyModal({
 						isMultiple={true}
 						limit={4}
 						onChange={(values) => onCurrencyChange(values)}
-						onClose={onClose}
 						color={'blue'}
 					/>
+				</div>
+
+				<div className="flex justify-center w-full mt-3">
+					<button
+						onClick={onClose}
+						type="button"
+						className="p-2 transition-colors rounded cursor-pointer text-green-400/90 bg-green-900/40 duration-400 w-60 hover:bg-green-700 hover:text-gray-100 active:bg-green-800 "
+					>
+						تایید
+					</button>
 				</div>
 			</div>
 		</div>
