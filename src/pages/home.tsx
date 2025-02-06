@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react'
-import { BiBroadcast } from 'react-icons/bi'
-import { IoPulse } from 'react-icons/io5'
-import { MdTrendingUp } from 'react-icons/md'
 import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { AddCurrencyBox } from '../components/AddCurrencyBox'
