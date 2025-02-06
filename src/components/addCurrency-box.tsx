@@ -89,6 +89,7 @@ export function SelectCurrencyModal({
 						isMultiple={true}
 						limit={4}
 						onChange={(values) => onCurrencyChange(values)}
+						onClose={onClose}
 						color={'blue'}
 					/>
 				</div>
