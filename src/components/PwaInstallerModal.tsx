@@ -8,6 +8,7 @@ interface PwaInstallerModalProps {
 export const PwaInstallerModal = ({ show, onClose }: PwaInstallerModalProps) => {
 	const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
 	const [isIos, setIsIos] = useState(false)
+	const [isInstalling, setIsInstalling] = useState(false)
 
 	useEffect(() => {
 		const userAgent = window.navigator.userAgent.toLowerCase()
@@ -28,8 +29,10 @@ export const PwaInstallerModal = ({ show, onClose }: PwaInstallerModalProps) => 
 
 	const handleInstallClick = () => {
 		if (deferredPrompt) {
+			setIsInstalling(true)
 			deferredPrompt.prompt()
 			deferredPrompt.userChoice.then((choiceResult: any) => {
+				setIsInstalling(false)
 				if (choiceResult.outcome === 'accepted') {
 					console.log('User accepted the install prompt')
 				} else {
@@ -72,9 +75,10 @@ export const PwaInstallerModal = ({ show, onClose }: PwaInstallerModalProps) => 
 							</p>
 							<button
 								onClick={handleInstallClick}
-								className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+								className={`w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 ${isInstalling ? 'animate-pulse' : ''}`}
+								disabled={isInstalling}
 							>
-								نصب اپلیکیشن
+								{isInstalling ? 'در حال نصب...' : 'نصب اپلیکیشن'}
 							</button>
 						</>
 					)}
