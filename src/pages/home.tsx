@@ -4,6 +4,7 @@ import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { AddCurrencyBox } from '../components/AddCurrencyBox'
 import { CurrencyBox } from '../components/CurrencyBox'
+import { PwaInstallerModal } from '../components/PwaInstallerModal'
 import { storeContext } from '../context/setting.context'
 import { useGetSupportCurrencies } from '../services/getMethodHooks/getSupportCurrencies.hook'
 
@@ -11,6 +12,23 @@ export function HomePage() {
 	const [selectedCurrencies, setSelectedCurrencies] = useState<Array<string>>(
 		getFromStorage(StoreKey.CURRENCIES) || [],
 	)
+
+	const [showPwaModal, setShowPwaModal] = useState(false)
+
+	useEffect(() => {
+		const isStandalone =
+			window.matchMedia('(display-mode: standalone)').matches ||
+			//@ts-ignore
+			window.navigator.standalone
+
+		if (!isStandalone) {
+			const timer = setTimeout(() => {
+				setShowPwaModal(true)
+			}, 5000) // Show modal after 5 seconds
+
+			return () => clearTimeout(timer)
+		}
+	}, [])
 
 	const { isLoading, data } = useGetSupportCurrencies()
 
@@ -33,10 +51,10 @@ export function HomePage() {
 					{selectedCurrencies.map((currency, index) => (
 						<CurrencyBox key={index} code={currency} />
 					))}
-
 					<AddCurrencyBox loading={isLoading} supportCurrencies={data || []} />
 				</div>
 			</section>
+			<PwaInstallerModal show={showPwaModal} onClose={() => setShowPwaModal(false)} />
 		</storeContext.Provider>
 	)
 }
