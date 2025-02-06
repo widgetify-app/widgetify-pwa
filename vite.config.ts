@@ -17,6 +17,7 @@ export default defineConfig({
 			manifest: {
 				name: 'widgetify - ویجتیفای | ویجت‌های زیبا و کاربردی',
 				short_name: 'widgetify',
+				description: 'ویجتیفای | ویجت‌های زیبا و کاربردی',
 				icons: [
 					{
 						src: 'icons/icon-48x48.png',
