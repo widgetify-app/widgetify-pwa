@@ -4,6 +4,7 @@ dist
 .gitignore
 Dockerfile
 docker-compose.yml
+bun.lockb
 npm-debug.log
 yarn-error.log
 .vscode
