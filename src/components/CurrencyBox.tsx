@@ -44,6 +44,8 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			setCurrency(data)
 			setToStorage(`currency:${code}`, data)
 		}
+		const event = new Event('fetched-data')
+		window.dispatchEvent(event)
 	}, [dataUpdatedAt])
 
 	useEffect(() => {
