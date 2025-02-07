@@ -183,6 +183,17 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 					<div className="space-y-2">
 						<div className="relative text-xl font-bold text-gray-900 dark:text-gray-200">
 							<p>{displayPrice !== 0 ? displayPrice.toLocaleString() : ''} </p>
+							{currency?.type === 'crypto' ? (
+								<p className="text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+									${currency?.price ? currency.price.toLocaleString() : ''}
+								</p>
+							) : null}
+
+							{currency?.type === 'coin' ? (
+								<p className="text-sm font-medium text-center text-gray-500 dark:text-gray-400 font-[Vazir]">
+									{currency?.name ? currency.name.fa : ''}
+								</p>
+							) : null}
 						</div>
 					</div>
 				</div>
