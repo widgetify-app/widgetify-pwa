@@ -84,6 +84,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 
 	function toggleCurrencyModal() {
 		if (!isModalOpen === true) {
+			if (!data) return
 			// vibration
 			if ('vibrate' in navigator) {
 				navigator.vibrate(100)
