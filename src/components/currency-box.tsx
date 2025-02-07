@@ -99,7 +99,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 					<p className="text-xs font-medium text-right truncate dark:text-gray-300">
 						{currency?.name.en}
 					</p>
-					<p className="text-xs font-normal text-right text-gray-100 opacity-45">
+					<p className="text-xs font-normal text-right text-gray-700 dark:text-gray-100 opacity-45">
 						{code.toUpperCase()}
 					</p>
 				</div>
