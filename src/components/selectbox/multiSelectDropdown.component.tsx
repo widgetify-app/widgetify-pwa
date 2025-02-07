@@ -58,15 +58,14 @@ export const MultiSelectDropdown = ({
 					searchContainer: 'w-full px-1 my-2 relative',
 
 					// Tag styles
-					tagItem: (value) =>
+					tagItem: () =>
 						'rounded-md flex p-1.5 m-0.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-gray-500',
 					tagItemText: 'text-primary-700 dark:text-primary-300',
 					tagItemIconContainer:
 						'flex items-center px-1 cursor-pointer rounded-r-sm hover:bg-red-500/50 hover:text-red-500',
 
-					listItem: ({ isSelected }) =>
+					listItem: () =>
 						`p-2.5 rounded-md cursor-pointer select-none list-none transition-colors duration-150 
-			${isSelected ? 'bg-primary-50 dark:bg-primary-900/20' : 'bg-transparent'} 
 			hover:bg-gray-100/20 dark:hover:bg-black/20
 			hover:text-gray-700 dark:hover:text-gray-400
 			text-gray-700 dark:text-gray-300`,
@@ -90,7 +89,7 @@ export const MultiSelectDropdown = ({
             [&::-webkit-scrollbar-thumb]:duration-200`,
 
 					// Selected item
-					menuButton: (state) =>
+					menuButton: () =>
 						'flex text-sm text-gray-500 border border-gray-300 rounded shadow-sm transition-all duration-300 focus:outline-none hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-500/20 dark:bg-[#3f3f3f] dark:border-gray-700 dark:text-gray-300 dark:hover:border-gray-500 dark:focus:border-blue-500 dark:focus:ring-blue-500/20',
 					// Clear button
 				}}
