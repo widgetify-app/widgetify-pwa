@@ -8,4 +8,10 @@ export interface Currency {
 	rialPrice: number
 	type: 'coin' | 'crypto' | 'currency'
 	changePercentage: number | null
+	priceHistory: Array<PriceHistory>
+}
+
+export interface PriceHistory {
+	price: number
+	createdAt: string
 }
