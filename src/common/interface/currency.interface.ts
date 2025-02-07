@@ -6,5 +6,6 @@ export interface Currency {
 	icon: string
 	price: number
 	rialPrice: number
+	type: 'coin' | 'crypto' | 'currency'
 	changePercentage: number | null
 }
