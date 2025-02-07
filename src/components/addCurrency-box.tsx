@@ -84,7 +84,6 @@ export function SelectCurrencyModal({
 						options={getCurrencyOptions(supportCurrencies) as any}
 						values={getSelectedCurrencies(selectedCurrencies, supportCurrencies)}
 						isMultiple={true}
-						limit={4}
 						onChange={(values) => onCurrencyChange(values)}
 						color={'blue'}
 					/>
@@ -94,7 +93,7 @@ export function SelectCurrencyModal({
 					<button
 						onClick={onClose}
 						type="button"
-						className="p-2 transition-colors rounded cursor-pointer text-green-400/90 bg-green-900/40 duration-400 w-60 hover:bg-green-700 hover:text-gray-100 active:bg-green-800 "
+						className="p-2 text-white transition-colors duration-300 bg-green-600 rounded cursor-pointer hover:bg-green-700 active:bg-green-800 dark:text-gray-100 dark:bg-green-700 dark:hover:bg-green-800 dark:active:bg-green-900 w-60"
 					>
 						تایید
 					</button>

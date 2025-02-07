@@ -1,11 +1,11 @@
 import { motion, useMotionValue, useSpring } from 'motion/react'
+import ms from 'ms'
 import { useEffect, useRef, useState } from 'react'
 import { FaArrowDownLong, FaArrowUpLong } from 'react-icons/fa6'
 import { getMainColorFromImage } from '../common/color'
 import type { Currency } from '../common/interface/currency.interface'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { useGetCurrencyByCode } from '../services/getMethodHooks/getCurrencyByCode.hook'
-import ms from 'ms'
 interface CurrencyBoxProps {
 	code: string
 }
@@ -86,7 +86,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 					<img
 						src={currency?.icon}
 						alt={currency?.name?.en}
-						className="object-cover w-4 h-4 rounded-full contrast-60"
+						className="object-cover w-4 h-4 rounded-full "
 					/>
 					<div
 						className={'w-5 h-5 absolute rounded-full z-0 left-1.5 blur-lg'}
