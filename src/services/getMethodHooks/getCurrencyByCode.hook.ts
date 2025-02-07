@@ -10,6 +10,13 @@ export interface FetchedCurrency {
 	price: number
 	rialPrice: number
 	changePercentage: number
+	priceHistory: PriceHistory[]
+	type: 'coin' | 'crypto' | 'currency'
+}
+
+export interface PriceHistory {
+	price: number
+	createdAt: string
 }
 
 export const useGetCurrencyByCode = (currency: string) => {
@@ -20,9 +27,7 @@ export const useGetCurrencyByCode = (currency: string) => {
 	})
 }
 
-async function getSupportCurrencies(
-	currency: string,
-): Promise<FetchedCurrency> {
+async function getSupportCurrencies(currency: string): Promise<FetchedCurrency> {
 	const client = await getMainApi()
 	const { data } = await client.get<FetchedCurrency>(`/v2/arz/${currency}`)
 	return data

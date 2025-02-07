@@ -2,9 +2,9 @@ import jalaliMoment from 'jalali-moment'
 import { useContext, useEffect, useState } from 'react'
 import { StoreKey } from '../../common/constant/store.key'
 import { AddCurrencyBox } from '../../components/addCurrency-box'
-import { CurrencyBox } from '../../components/currency-box'
 import { storeContext } from '../../context/setting.context'
 import { useGetSupportCurrencies } from '../../services/getMethodHooks/getSupportCurrencies.hook'
+import { CurrencyBox } from './components/currency-box'
 export function ArzLiveLayout() {
 	const { isLoading, data } = useGetSupportCurrencies()
 	const { selectedCurrencies } = useContext(storeContext)

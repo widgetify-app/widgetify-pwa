@@ -1,33 +1,14 @@
-import {
-	CategoryScale,
-	Chart as ChartJS,
-	Legend,
-	LineElement,
-	LinearScale,
-	PointElement,
-	Title,
-	Tooltip,
-} from 'chart.js'
 import { motion, useMotionValue, useSpring } from 'motion/react'
 import ms from 'ms'
 import { useEffect, useRef, useState } from 'react'
-import { Line } from 'react-chartjs-2'
 import { FaArrowDownLong, FaArrowUpLong } from 'react-icons/fa6'
-import { getMainColorFromImage } from '../common/color'
-import type { Currency } from '../common/interface/currency.interface'
-import { getFromStorage, setToStorage } from '../common/storage'
-import { useGetCurrencyByCode } from '../services/getMethodHooks/getCurrencyByCode.hook'
-import Modal from './modal'
-
-ChartJS.register(
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-)
+import { getMainColorFromImage } from '../../../common/color'
+import { getFromStorage, setToStorage } from '../../../common/storage'
+import {
+	type FetchedCurrency,
+	useGetCurrencyByCode,
+} from '../../../services/getMethodHooks/getCurrencyByCode.hook'
+import { CurrencyModalComponent } from './currency-modal'
 
 interface CurrencyBoxProps {
 	code: string
@@ -35,8 +16,8 @@ interface CurrencyBoxProps {
 
 export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 	const { data, refetch, dataUpdatedAt } = useGetCurrencyByCode(code)
-	const [currency, setCurrency] = useState<Currency | null>(
-		getFromStorage<Currency>(`currency:${code}`) || null,
+	const [currency, setCurrency] = useState<FetchedCurrency | null>(
+		getFromStorage<FetchedCurrency>(`currency:${code}`) || null,
 	)
 
 	const [imgColor, setImgColor] = useState<string>()
@@ -63,6 +44,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 		return () => clearInterval(intervalId)
 	}, [refetch])
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (data) {
 			setCurrency(data)
@@ -80,6 +62,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 		}
 	}, [currency?.icon])
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (currency?.price) {
 			if (prevPriceRef.current !== currency.price) {
@@ -129,18 +112,6 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 		}
 	}
 
-	const chartData = {
-		labels: currency?.priceHistory?.map((entry) => entry.createdAt) || [],
-		datasets: [
-			{
-				label: 'Price History',
-				data: currency?.priceHistory?.map((entry) => entry.price) || [],
-				borderColor: 'rgba(75, 192, 192, 1)',
-				backgroundColor: 'rgba(75, 192, 192, 0.2)',
-			},
-		],
-	}
-
 	return (
 		<div
 			className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm sm:w-32 dark:bg-neutral-700 w-36"
@@ -188,58 +159,17 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 				</motion.p>
 			</div>
 
-			<Modal
-				isOpen={isModalOpen}
-				onClose={() => toggleCurrencyModal()}
-				size="sm"
-				title=""
-			>
-				<div className="flex flex-col items-center justify-center space-y-6 font-[balooTamma] p-4">
-					<div className="relative">
-						<img
-							src={currency?.icon}
-							alt={currency?.name?.en}
-							className="z-50 object-cover w-16 h-16 rounded-full shadow"
-						/>
-						<div
-							className="absolute top-0 z-10 w-16 h-16 blur-xl opacity-30"
-							style={{ backgroundColor: imgColor }}
-						/>
-					</div>
-					<div className="text-center">
-						<p className="text-xl font-bold text-gray-800 dark:text-gray-200">
-							{currency?.name.en}
-						</p>
-						<p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-							{code.toUpperCase()}
-						</p>
-					</div>
-					<div className="space-y-2">
-						<div className="relative text-xl font-bold text-gray-900 dark:text-gray-200">
-							<p>{displayPrice !== 0 ? displayPrice.toLocaleString() : ''} </p>
-							{currency?.type === 'crypto' ? (
-								<p className="text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-									$
-									{currency?.price
-										? Number(currency.price.toFixed()).toLocaleString()
-										: ''}
-								</p>
-							) : null}
-
-							{currency?.type === 'coin' ? (
-								<p className="text-sm font-medium text-center text-gray-500 dark:text-gray-400 font-[Vazir]">
-									{currency?.name ? currency.name.fa : ''}
-								</p>
-							) : null}
-						</div>
-					</div>
-					{currency?.priceHistory?.length ? (
-						<div className="w-full">
-							<Line data={chartData} />
-						</div>
-					) : null}
-				</div>
-			</Modal>
+			{currency ? (
+				<CurrencyModalComponent
+					code={code}
+					currency={currency}
+					displayPrice={displayPrice}
+					imgColor={imgColor}
+					isModalOpen={isModalOpen}
+					toggleCurrencyModal={toggleCurrencyModal}
+					key={code}
+				/>
+			) : null}
 		</div>
 	)
 }
