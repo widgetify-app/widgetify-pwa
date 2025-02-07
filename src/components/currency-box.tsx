@@ -139,7 +139,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			</div>
 
 			<div className="relative w-full">
-				<motion.p className="text-[1.1rem] text-gray-500 dark:text-gray-200 font-[balooTamma] font-bold">
+				<motion.p className="text-[1.0rem] text-gray-500 dark:text-gray-200 font-[balooTamma] font-bold">
 					{displayPrice !== 0 ? displayPrice.toLocaleString() : ''}
 					{currency?.changePercentage ? (
 						<div
