@@ -126,6 +126,10 @@ body {
 		background: #333;
 		color: white;
 	}
+
+	.custom-select-box hr {
+		color: #333333;
+	}
 }
 
 @media (prefers-color-scheme: light) {
@@ -133,11 +137,13 @@ body {
 		background: #ddd;
 		color: black;
 	}
+
+	.custom-select-box hr {
+		color: #ddd;
+	}
 }
 
-/* body {
-	background: #333;
-} */
+
 
 
 .modal-backdrop {
