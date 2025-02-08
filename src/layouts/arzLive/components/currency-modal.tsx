@@ -131,6 +131,7 @@ export const CurrencyModalComponent = ({
 				</div>
 				{currency?.priceHistory?.length ? (
 					<div className="w-full h-64">
+						{/* @ts-ignore */}
 						<Line data={chartData} options={chartOptions} />
 					</div>
 				) : null}
