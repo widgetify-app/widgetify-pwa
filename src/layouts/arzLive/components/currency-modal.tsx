@@ -63,15 +63,16 @@ export const CurrencyModalComponent = ({
 					display: false,
 				},
 				ticks: {
-					color: '#ffffff',
+					color: (theme: { dark: any }) => (theme.dark ? '#ffffff' : '#666666'),
 				},
 			},
 			y: {
 				grid: {
-					color: 'rgba(255, 255, 255, 0.1)',
+					color: (theme: { dark: any }) =>
+						theme.dark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
 				},
 				ticks: {
-					color: '#ffffff',
+					color: (theme: { dark: any }) => (theme.dark ? '#ffffff' : '#666666'),
 				},
 			},
 		},
