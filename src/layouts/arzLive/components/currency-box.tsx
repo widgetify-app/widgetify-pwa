@@ -114,7 +114,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 
 	return (
 		<div
-			className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm sm:w-32 dark:bg-[#1a1a1a] w-36"
+			className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm  dark:bg-[#1a1a1a]"
 			onClick={() => toggleCurrencyModal()}
 			onMouseDown={handleMouseDown}
 			onMouseUp={handleMouseUp}
