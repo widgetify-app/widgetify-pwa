@@ -162,6 +162,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 			{currency ? (
 				<CurrencyModalComponent
 					code={code}
+					priceChange={priceChange}
 					currency={currency}
 					displayPrice={displayPrice}
 					imgColor={imgColor}

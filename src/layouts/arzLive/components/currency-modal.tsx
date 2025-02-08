@@ -9,6 +9,7 @@ import {
 	Tooltip,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import { FaArrowDownLong, FaArrowUpLong } from 'react-icons/fa6'
 import Modal from '../../../components/modal'
 
 ChartJS.register(
@@ -27,6 +28,7 @@ interface CurrencyModalComponentProps {
 	displayPrice: number
 	imgColor: string | undefined
 	isModalOpen: boolean
+	priceChange: number | null
 	toggleCurrencyModal: () => void
 }
 
@@ -36,6 +38,7 @@ export const CurrencyModalComponent = ({
 	displayPrice,
 	imgColor,
 	isModalOpen,
+	priceChange,
 	toggleCurrencyModal,
 }: CurrencyModalComponentProps) => {
 	const chartData = {
@@ -114,6 +117,7 @@ export const CurrencyModalComponent = ({
 				</div>
 				<div className="space-y-2">
 					<div className="relative text-xl font-bold text-gray-900 dark:text-gray-200">
+						{priceChange ? <PriceChangeComponent priceChange={priceChange} /> : null}
 						<p>{displayPrice !== 0 ? displayPrice.toLocaleString() : ''} </p>
 						{currency?.type === 'crypto' ? (
 							<p className="text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -137,5 +141,20 @@ export const CurrencyModalComponent = ({
 				) : null}
 			</div>
 		</Modal>
+	)
+}
+interface Prop {
+	priceChange: number
+}
+export function PriceChangeComponent({ priceChange }: Prop) {
+	return (
+		<div
+			className={` text-xs  ml-1 flex  z-50 ${
+				priceChange > 0 ? 'text-red-500' : 'text-green-500'
+			}`}
+		>
+			{priceChange > 0 ? <FaArrowUpLong /> : <FaArrowDownLong />}
+			<p className="">{Number(priceChange.toFixed()).toLocaleString()}</p>
+		</div>
 	)
 }
