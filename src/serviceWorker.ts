@@ -24,9 +24,43 @@ export function register() {
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker
 			.register('/sw.js')
-			.then((reg) => {
-				console.log('register.. ', reg)
+			.then((registration) => {
+				console.log('Service Worker registered: ', registration)
+
+				registration.onupdatefound = () => {
+					const installingWorker = registration.installing
+					if (installingWorker) {
+						installingWorker.onstatechange = () => {
+							if (installingWorker.state === 'installed') {
+								if (navigator.serviceWorker.controller) {
+									console.log('New content is available; please refresh.')
+									// if (confirm('New version available. Do you want to update?')) {
+									// 	window.location.reload()
+									// }
+									const event = new Event('update-available')
+									window.dispatchEvent(event)
+								} else {
+									console.log('Content is cached for offline use.')
+								}
+							}
+						}
+					}
+				}
 			})
-			.catch(console.log)
+			.catch((error) => {
+				console.error('Error during service worker registration:', error)
+			})
+	}
+}
+
+export function unregister() {
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.ready
+			.then((registration) => {
+				registration.unregister()
+			})
+			.catch((error) => {
+				console.error(error.message)
+			})
 	}
 }

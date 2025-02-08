@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { PwaInstallerModal } from '../components/pwaInstaller-modal'
+import { UpdateAvailableModal } from '../components/updateAvailable-moda'
 import { storeContext } from '../context/setting.context'
 import { ArzLiveLayout } from '../layouts/arzLive/arzLive.layout'
 
@@ -11,6 +12,7 @@ export function HomePage() {
 	)
 
 	const [showPwaModal, setShowPwaModal] = useState(false)
+	const [showUpdateModal, setShowUpdateModal] = useState(false)
 
 	useEffect(() => {
 		const isStandalone =
@@ -30,6 +32,22 @@ export function HomePage() {
 		}
 	}, [])
 
+	function toggleUpdateModal() {
+		setShowUpdateModal(!showUpdateModal)
+	}
+
+	function onInstall() {
+		window.location.reload()
+	}
+
+	useEffect(() => {
+		window.addEventListener('update-available', toggleUpdateModal)
+
+		return () => {
+			window.removeEventListener('update-available', toggleUpdateModal)
+		}
+	}, [])
+
 	useEffect(() => {
 		setToStorage(StoreKey.CURRENCIES, selectedCurrencies)
 	}, [selectedCurrencies])
@@ -43,6 +61,11 @@ export function HomePage() {
 		>
 			<ArzLiveLayout />
 			<PwaInstallerModal show={showPwaModal} onClose={() => setShowPwaModal(false)} />
+			<UpdateAvailableModal
+				onClose={() => toggleUpdateModal()}
+				show={showUpdateModal}
+				onInstall={() => onInstall()}
+			/>
 		</storeContext.Provider>
 	)
 }

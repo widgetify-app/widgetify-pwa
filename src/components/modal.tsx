@@ -37,7 +37,7 @@ const Modal = ({
 					onClick={closeOnBackdropClick ? onClose : undefined}
 				>
 					<motion.div
-						className={`bg-[#f2f2f2] dark:bg-[#171616] shadow-xl rounded-2xl p-6 ${sizeClasses[size]}`}
+						className={`bg-[#f2f2f2] dark:bg-[#1f1f1f] shadow-xl rounded-2xl p-6 ${sizeClasses[size]}`}
 						initial={{ scale: 0.9, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0.9, opacity: 0 }}
