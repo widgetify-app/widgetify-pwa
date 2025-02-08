@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { TiPlus } from 'react-icons/ti'
-import { storeContext } from '../context/setting.context'
-import { MultiSelectDropdown } from './selectBox/multiSelectDropdown.component'
+import { MultiSelectDropdown } from '../../../components/selectBox/multiSelectDropdown.component'
+import { storeContext } from '../../../context/setting.context'
 
 export type SupportedCurrencies = {
 	key: string
@@ -30,7 +30,7 @@ export const AddCurrencyBox = ({
 	return (
 		<>
 			<div
-				className={`flex flex-col items-center justify-between h-24 p-2  bg-white rounded-lg shadow-sm cursor-pointer dark:bg-neutral-700 w-36 ${disabled ? 'opacity-50' : 'hover:bg-gray-100 dark:hover:bg-neutral-800'}`}
+				className={`flex flex-col items-center justify-between h-24 p-2  bg-white rounded-lg shadow-sm cursor-pointer dark:bg-[#1a1a1a] w-36 ${disabled ? 'opacity-50' : 'hover:bg-gray-100 dark:hover:bg-neutral-800'}`}
 				onClick={() => (disabled ? null : setShowModal(true))}
 			>
 				<div className="flex items-center justify-center h-full gap-3 p-2 rounded-lg">
