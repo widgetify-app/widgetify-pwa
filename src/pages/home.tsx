@@ -7,8 +7,12 @@ import { storeContext } from '../context/setting.context'
 import { ArzLiveLayout } from '../layouts/arzLive/arzLive.layout'
 
 export function HomePage() {
+	const defaultCurrencies = ['USD', 'EUR', 'GRAM']
+	const storedCurrencies = getFromStorage(StoreKey.CURRENCIES) as string[] | null
 	const [selectedCurrencies, setSelectedCurrencies] = useState<Array<string>>(
-		getFromStorage(StoreKey.CURRENCIES) || [],
+		storedCurrencies && storedCurrencies.length > 0
+			? storedCurrencies
+			: defaultCurrencies,
 	)
 
 	const [showPwaModal, setShowPwaModal] = useState(false)
