@@ -95,7 +95,7 @@ export const CurrencyModalComponent = ({
 
 	return (
 		<Modal isOpen={isModalOpen} onClose={toggleCurrencyModal} size="sm" title="">
-			<div className="flex flex-col items-center justify-center space-y-6 font-[balooTamma] p-4">
+			<div className="flex flex-col items-center justify-center space-y-2 font-[balooTamma] p-2">
 				<div className="relative">
 					<img
 						src={currency?.icon}
@@ -115,7 +115,7 @@ export const CurrencyModalComponent = ({
 						{code.toUpperCase()}
 					</p>
 				</div>
-				<div className="space-y-2">
+				<div className="space-y-0">
 					<div className="relative text-xl font-bold text-gray-900 dark:text-gray-200">
 						{priceChange ? <PriceChangeComponent priceChange={priceChange} /> : null}
 						<p>{displayPrice !== 0 ? displayPrice.toLocaleString() : ''} </p>
