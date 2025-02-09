@@ -39,7 +39,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
 			refetch()
-		}, ms('5m')) // 1 minute
+		}, ms('3m'))
 
 		return () => clearInterval(intervalId)
 	}, [refetch])
@@ -114,7 +114,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 
 	return (
 		<div
-			className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm  dark:bg-[#1a1a1a]"
+			className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm bg-neutral-100 dark:bg-[#282828]"
 			onClick={() => toggleCurrencyModal()}
 			onMouseDown={handleMouseDown}
 			onMouseUp={handleMouseUp}

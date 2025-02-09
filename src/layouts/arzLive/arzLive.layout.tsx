@@ -26,7 +26,7 @@ export function ArzLiveLayout() {
 	}, [])
 
 	return (
-		<section className="p-2 mx-1 rounded shadow lg:mx-4 bg-neutral-100 dark:bg-neutral-800">
+		<section className="p-2 mx-1 rounded lg:mx-4">
 			<div className="flex items-center justify-between w-full px-1">
 				<h2 className="text-lg font-semibold dark:text-gray-200 font-[balooTamma]">
 					🪙 ArzLive

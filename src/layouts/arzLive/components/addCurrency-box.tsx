@@ -31,7 +31,7 @@ export const AddCurrencyBox = ({
 	return (
 		<>
 			<div
-				className={`flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm cursor-pointer dark:bg-[#1a1a1a] ${disabled ? 'opacity-50' : 'hover:bg-gray-100 dark:hover:bg-neutral-800'}`}
+				className={`flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm cursor-pointer bg-neutral-100 dark:bg-[#282828] ${disabled ? 'opacity-50' : 'hover:bg-gray-100 dark:hover:bg-neutral-800'}`}
 				onClick={() => (disabled ? null : setShowModal(true))}
 			>
 				<div className="flex items-center justify-center h-full gap-3 p-2 rounded-lg">
