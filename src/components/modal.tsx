@@ -8,6 +8,7 @@ type ModalProps = {
 	title?: string
 	size?: 'sm' | 'md' | 'lg' | 'xl'
 	children: ReactNode
+	direction?: 'rtl' | 'ltr'
 	closeOnBackdropClick?: boolean
 }
 
@@ -25,6 +26,7 @@ const Modal = ({
 	size = 'md',
 	children,
 	closeOnBackdropClick = true,
+	direction = 'ltr',
 }: ModalProps) => {
 	return (
 		<AnimatePresence>
@@ -35,6 +37,7 @@ const Modal = ({
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					onClick={closeOnBackdropClick ? onClose : undefined}
+					dir={direction}
 				>
 					<motion.div
 						className={`bg-[#f2f2f2] dark:bg-[#1f1f1f] shadow-xl rounded-2xl p-6 ${sizeClasses[size]}`}

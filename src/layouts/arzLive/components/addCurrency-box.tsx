@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { TiPlus } from 'react-icons/ti'
+import Modal from '../../../components/modal'
 import { MultiSelectDropdown } from '../../../components/selectBox/multiSelectDropdown.component'
 import { storeContext } from '../../../context/setting.context'
 
@@ -68,17 +69,9 @@ export function SelectCurrencyModal({
 		setSelectedCurrencies(values)
 	}
 
-	return show ? (
-		<div
-			className="fixed inset-0 z-50 flex items-start justify-center p-2 bg-black/60 backdrop-blur-sm"
-			dir="rtl"
-		>
-			<div className="w-full max-w-sm p-4   rounded shadow-xl bg-[#f2f2f2] dark:bg-[#262626]">
-				<div className="flex items-center justify-between mb-4">
-					<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-						افزودن ارز
-					</h2>
-				</div>
+	return (
+		<Modal isOpen={show} onClose={onClose} size="sm" title="افزودن ارز" direction="rtl">
+			<div className="w-full" dir="rtl">
 				<div>
 					<MultiSelectDropdown
 						options={getCurrencyOptions(supportCurrencies) as any}
@@ -99,8 +92,8 @@ export function SelectCurrencyModal({
 					</button>
 				</div>
 			</div>
-		</div>
-	) : null
+		</Modal>
+	)
 }
 
 interface Option {
