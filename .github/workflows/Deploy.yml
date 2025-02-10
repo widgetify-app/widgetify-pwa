@@ -1,0 +1,42 @@
+name: 🚀 Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛠️ Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 📦 Install SSH Client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
+
+      - name: 🔑 Add SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 🌍 Add SSH Host to Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: 🚀 SSH and Deploy
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
+        run: |
+          ssh -p $SERVER_PORT $SERVER_USER@$SERVER_IP << 'EOF'
+            cd $PROJECT_PATH
+            git pull
+            docker compose up -d --build --remove-orphans
+          EOF
