@@ -36,7 +36,7 @@ jobs:
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
           PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         run: |
-          ssh -p $SERVER_PORT $SERVER_USER@$SERVER_IP << 'EOF'
+          ssh -o LogLevel=QUIET -p $SERVER_PORT $SERVER_USER@$SERVER_IP << 'EOF'
             cd $PROJECT_PATH
             git pull
             docker compose up -d --build --remove-orphans
