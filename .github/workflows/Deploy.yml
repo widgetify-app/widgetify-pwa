@@ -26,7 +26,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: 🌍 Add SSH Host to Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        run: ssh-keyscan -p ${{ secrets.SERVER_PORT }} -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: 🚀 SSH and Deploy
         env:
