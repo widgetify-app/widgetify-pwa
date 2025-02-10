@@ -112,9 +112,11 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 		}
 	}
 
+	console.log(currency)
+
 	return (
 		<div
-			className="flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm bg-neutral-100 dark:bg-[#282828]"
+			className="flex flex-col items-center justify-between h-[180px] p-3 rounded-lg shadow-sm bg-neutral-100 dark:bg-[#282828] border border-gray-700"
 			onClick={() => toggleCurrencyModal()}
 			onMouseDown={handleMouseDown}
 			onMouseUp={handleMouseUp}
@@ -126,25 +128,25 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 					<img
 						src={currency?.icon}
 						alt={currency?.name?.en}
-						className="object-cover w-4 h-4 rounded-full "
+						className="object-cover w-10 h-10 rounded-full "
 					/>
 					<div
-						className="absolute z-10 w-5 h-5 opacity-50 top-1 blur-md"
+						className="absolute z-10 w-11 h-11 opacity-50 top-1 blur-md"
 						style={{ backgroundColor: imgColor }}
 					></div>
 				</>
 				<div className="flex flex-col w-full px-2">
-					<p className="text-xs font-medium text-right truncate dark:text-gray-300">
+					<p className="text-[1rem] font-medium text-right truncate dark:text-gray-300">
 						{currency?.name.en}
 					</p>
-					<p className="text-xs font-normal text-right text-gray-700 dark:text-gray-100 opacity-45">
+					<p className="text-[0.8rem] font-normal text-right text-gray-700 dark:text-gray-100 opacity-45">
 						{code.toUpperCase()}
 					</p>
 				</div>
 			</div>
 
 			<div className="relative w-full">
-				<motion.p className="text-[1.0rem] text-gray-500 dark:text-gray-200 font-[balooTamma] font-bold">
+				<motion.p className="text-[2.0rem] text-gray-500 dark:text-gray-200 font-[balooTamma] font-bold">
 					{displayPrice !== 0 ? displayPrice.toLocaleString() : ''}
 					{currency?.changePercentage ? (
 						<div

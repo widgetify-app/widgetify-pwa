@@ -1,108 +1,79 @@
-import {
-	CategoryScale,
-	type ChartData,
-	Chart as ChartJS,
-	type ChartOptions,
-	Legend,
-	LineElement,
-	LinearScale,
-	PointElement,
-	Title,
-	Tooltip,
-} from 'chart.js'
-import { Line } from 'react-chartjs-2'
+import React from 'react';
+import ReactECharts from 'echarts-for-react';
+import moment from 'moment-jalaali';
 
-import type { PriceHistory } from '../../../services/getMethodHooks/getCurrencyByCode.hook'
-ChartJS.register(
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-)
+interface PriceHistory {
+  createdAt: string;
+  price: number;
+}
 
 interface CurrencyChartProp {
-	priceHistory: PriceHistory[]
+  priceHistory: PriceHistory[];
 }
 
 export function CurrencyChart({ priceHistory }: CurrencyChartProp) {
-	const chartData: ChartData = {
-		labels: priceHistory?.map((entry: any) => entry.createdAt) || [],
-		datasets: [
-			{
-				label: 'Price History',
-				data: priceHistory?.map((entry: any) => entry.price) || [],
-				borderColor: 'rgba(75, 192, 192, 1)',
-				backgroundColor: 'rgba(75, 192, 192, 0.2)',
-				tension: 0.4,
-				fill: true,
+  const option = {
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      textStyle: {
+        color: '#ffffff',
+      },
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 1,
+    },
+    xAxis: {
+      type: 'category',
+      data: priceHistory.map(entry => moment(entry.createdAt).format('jYYYY/jMM/jDD')),
+      axisLabel: {
+        color: '#666666',
+        fontSize: 8,
+        fontWeight: 'bold',
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#666666',
+        },
+      },
+      inverse: true, 
+    },
+    yAxis: {
+      type: 'value',
+      position: 'right',
+      axisLabel: {
+        color: '#666666',
+        fontSize: 10,
+        fontWeight: 'bold',
+      },
+      splitLine: {
+        lineStyle: {
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+      },
+    },
+    series: [
+      {
+        name: 'Price History',
+        type: 'line',
+        data: priceHistory.map(entry => entry.price),
+        smooth: true,
+        lineStyle: {
+          color: 'rgba(75, 192, 192, 1)',
+        },
+        areaStyle: {
+          color: 'rgba(75, 192, 192, 0.2)',
+        },
+        symbolSize: 4,
+        symbol: 'circle',
+      },
+    ],
+    grid: {
+      left: '5%',
+      right: '5%',
+      bottom: '10%',
+      containLabel: true,
+    },
+  };
 
-				pointRadius: 2,
-				pointStyle: 'star',
-				animation: {
-					delay: 600,
-					duration: 1000,
-					easing: 'easeInOutQuart',
-				},
-				pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-			},
-		],
-	}
-
-	const chartOptions: ChartOptions = {
-		responsive: true,
-		maintainAspectRatio: false,
-		scales: {
-			x: {
-				grid: {
-					display: false,
-				},
-				ticks: {
-					//@ts-ignore
-					color: (theme: { dark: any }) => (theme.dark ? '#ffffff' : '#666666'),
-					font: {
-						size: 8,
-						family: 'balooTamma',
-						weight: 'bold',
-					},
-					align: 'start',
-				},
-				reverse: true,
-			},
-			y: {
-				position: 'right',
-				grid: {
-					//@ts-ignore
-					color: (theme: { dark: any }) =>
-						theme.dark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-				},
-				ticks: {
-					//@ts-ignore
-					color: (theme: { dark: any }) => (theme.dark ? '#ffffff' : '#666666'),
-					font: {
-						size: 10,
-						family: 'balooTamma',
-						weight: 'bold',
-					},
-					align: 'inner',
-				},
-			},
-		},
-		plugins: {
-			legend: {
-				display: false,
-			},
-			tooltip: {
-				backgroundColor: 'rgba(0, 0, 0, 0.7)',
-				titleColor: '#ffffff',
-				bodyColor: '#ffffff',
-				borderColor: 'rgba(75, 192, 192, 1)',
-				borderWidth: 1,
-			},
-		},
-	}
-	// @ts-ignore
-	return <Line className="w-full" data={chartData} options={chartOptions} />
+  return <ReactECharts option={option} style={{ width: '100%', height: '400px' }} />;
 }

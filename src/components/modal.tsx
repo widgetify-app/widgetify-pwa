@@ -32,7 +32,7 @@ const Modal = ({
 		<AnimatePresence>
 			{isOpen && (
 				<motion.div
-					className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+					className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm "
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
@@ -40,7 +40,7 @@ const Modal = ({
 					dir={direction}
 				>
 					<motion.div
-						className={`bg-[#f2f2f2] dark:bg-[#1f1f1f] shadow-xl rounded-2xl p-6 ${sizeClasses[size]}`}
+						className={`bg-[#f2f2f2] dark:bg-[#1f1f1f] shadow-xl rounded-2xl p-6 h-[600px]  ${sizeClasses[size]}`}
 						initial={{ scale: 0.9, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0.9, opacity: 0 }}
