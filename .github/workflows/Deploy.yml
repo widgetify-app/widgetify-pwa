@@ -34,10 +34,9 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
-          PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         run: |
           ssh -o LogLevel=QUIET -p $SERVER_PORT $SERVER_USER@$SERVER_IP << 'EOF'
-            cd $PROJECT_PATH
+            cd /root/services/widgetify-pwa
             git pull
             docker compose up -d --build --remove-orphans
           EOF
