@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react'
-import { AiOutlineLoading } from 'react-icons/ai'
-import { TiPlus } from 'react-icons/ti'
+import {useContext, useState} from 'react'
+import {AiOutlineLoading} from 'react-icons/ai'
+import {TiPlus} from 'react-icons/ti'
 import Modal from '../../../components/modal'
-import { MultiSelectDropdown } from '../../../components/selectBox/multiSelectDropdown.component'
-import { storeContext } from '../../../context/setting.context'
+import {MultiSelectDropdown} from '../../../components/selectBox/multiSelectDropdown.component'
+import {storeContext} from '../../../context/setting.context'
 
 export type SupportedCurrencies = {
 	key: string
@@ -76,9 +76,8 @@ export function SelectCurrencyModal({
 					<MultiSelectDropdown
 						options={getCurrencyOptions(supportCurrencies) as any}
 						values={getSelectedCurrencies(selectedCurrencies, supportCurrencies)}
-						isMultiple={true}
 						onChange={(values) => onCurrencyChange(values)}
-						color={'blue'}
+						placeholder={"جستجو ..."}
 					/>
 				</div>
 
@@ -86,7 +85,7 @@ export function SelectCurrencyModal({
 					<button
 						onClick={onClose}
 						type="button"
-						className="p-2 text-white transition-colors duration-300 bg-green-600 rounded cursor-pointer hover:bg-green-700 active:bg-green-800 dark:text-gray-100 dark:bg-green-700 dark:hover:bg-green-800 dark:active:bg-green-900 w-60"
+						className="p-2 text-white transition-colors duration-300 bg-green-600 rounded cursor-pointer hover:bg-green-700 active:bg-green-800 dark:text-gray-100 dark:bg-green-700 dark:hover:bg-green-800 dark:active:bg-green-900 w-100"
 					>
 						تایید
 					</button>
@@ -109,38 +108,40 @@ function getCurrencyOptions(supported: SupportedCurrencies): Option[] {
 	const isCrypto = keys
 		.map((key) => Number(key))
 		.filter((index) => supported[index].type === 'crypto')
+
 	const isCurrency = keys
 		.map((key) => Number(key))
 		.filter((index) => supported[index].type === 'currency')
+
 	const supportedCoins = keys
 		.map((key) => Number(key))
 		.filter((index) => supported[index].type === 'coin')
 
-	const options = [
+	return [
 		{
 			label: '🪙 ارزهای دیجیتال',
-			options: isCrypto.map((indx) => ({
-				value: supported[indx].key,
-				label: supported[indx].label.fa,
+			options: isCrypto.map((index) => ({
+				value: supported[index].key,
+				label: supported[index].label.fa,
+				labelEn: supported[index].key,
 			})),
 		},
 		{
 			label: '💵 ارزها',
-			options: isCurrency.map((key) => ({
-				value: supported[key].key,
-				label: supported[key].label.fa,
+			options: isCurrency.map((index) => ({
+				value: supported[index].key,
+				label: supported[index].label.fa,
+				labelEn: supported[index].key,
 			})),
 		},
 		{
 			label: '🥇 طلا و سکه',
-			options: supportedCoins.map((indx) => ({
-				value: supported[indx].key,
-				label: supported[indx].label.fa,
+			options: supportedCoins.map((index) => ({
+				value: supported[index].key,
+				label: supported[index].label.fa,
 			})),
 		},
 	]
-
-	return options
 }
 
 function getSelectedCurrencies(
