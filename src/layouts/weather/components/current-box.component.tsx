@@ -1,3 +1,5 @@
+import { motion } from 'motion/react'
+import { BsRobot } from 'react-icons/bs'
 import type { FetchedWeather } from '../../../services/getMethodHooks/weather/weather.interface'
 
 interface CurrentWeatherBoxProps {
@@ -5,34 +7,47 @@ interface CurrentWeatherBoxProps {
 }
 export function CurrentWeatherBox({ weather }: CurrentWeatherBoxProps) {
 	return (
-		<div className="col-span-2 p-3 bg-neutral-100 dark:bg-[#282828] rounded-lg shadow ">
-			<div className="flex items-center justify-between">
-				<img
-					src={weather.icon.url}
-					alt="weather"
-					width={weather.icon.width}
-					height={weather.icon.height}
-				/>
-				<div className="text-right">
-					<div className="text-3xl font-bold dark:text-white">
+		<div className="h-full col-span-2 p-5 shadow-lg bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-xl">
+			<div className="flex items-start justify-between gap-4">
+				<div className="relative group">
+					<motion.img
+						initial={{ scale: 0.9 }}
+						animate={{ scale: 1 }}
+						src={weather.icon.url}
+						alt="weather"
+						width={weather.icon.width}
+						height={weather.icon.height}
+						className="transition-transform duration-300 group-hover:scale-110"
+					/>
+				</div>
+
+				<div className="flex-1 text-right">
+					<span className="text-4xl font-bold text-white">
 						{Math.round(weather.temperature.temp)}°C
-					</div>
-					<div className="flex flex-col text-sm text-gray-500 dark:text-gray-400">
-						<p>
-							{weather.description.emoji} {weather.description.text}
-						</p>
-						<div className="flex items-center gap-2">
-							<div>🌡️ {weather.temperature.humidity}%</div>
-							<div>🍃{weather.temperature.wind_speed} m/s</div>
+					</span>
+
+					<p className="mt-1 text-sm text-gray-300">
+						{weather.description.emoji} {weather.description.text}
+					</p>
+
+					<div className="flex items-center justify-end gap-3 mt-2">
+						<div className="px-2 py-1 text-sm text-blue-300 rounded-lg bg-blue-500/20">
+							🌡️ {weather.temperature.humidity}%
+						</div>
+						<div className="px-2 py-1 text-sm text-green-300 rounded-lg bg-green-500/20">
+							🍃 {weather.temperature.wind_speed} m/s
 						</div>
 					</div>
 				</div>
 			</div>
-			<div className="h-16 mt-4 text-sm text-gray-500 dark:text-gray-400 max-h-16">
-				<p
-					className="w-full text-sm font-medium text-gray-500 dark:text-gray-400 "
-					dir="rtl"
-				>
+
+			<div className="relative p-3 mt-4 rounded-lg bg-neutral-800/50">
+				{weather.ai?.description && (
+					<div className="absolute -translate-y-1/2 left-3 top-1/2">
+						<BsRobot size={20} className="text-purple-400" />
+					</div>
+				)}
+				<p className="pl-8 pr-2 text-sm leading-relaxed text-gray-300" dir="rtl">
 					{weather.ai?.description || weather.temperature.temp_description}
 				</p>
 			</div>
