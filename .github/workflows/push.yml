@@ -1,10 +1,9 @@
-name: Pull Request Workflow
+name: Push Workflow
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
+  push: 
+    branches-ignore: 
+      - main
     paths-ignore:
       - "*.md"
 
