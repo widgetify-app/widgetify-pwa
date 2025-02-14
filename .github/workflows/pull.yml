@@ -7,9 +7,7 @@ on:
       - synchronize
     paths-ignore:
       - "*.md"
-  push:
-    branches:
-      - feats/workflows/pull
+
 
 jobs:
   build:
