@@ -39,24 +39,6 @@ export function ArzLiveLayout() {
 				{selectedCurrencies.map((currency, index) => (
 					<CurrencyBox key={index} code={currency} />
 				))}
-				{selectedCurrencies.map((currency, index) => (
-					<CurrencyBox key={index} code={currency} />
-				))}
-				{selectedCurrencies.map((currency, index) => (
-					<CurrencyBox key={index} code={currency} />
-				))}
-				{selectedCurrencies.map((currency, index) => (
-					<CurrencyBox key={index} code={currency} />
-				))}
-				{selectedCurrencies.map((currency, index) => (
-					<CurrencyBox key={index} code={currency} />
-				))}
-				{selectedCurrencies.map((currency, index) => (
-					<CurrencyBox key={index} code={currency} />
-				))}
-				{selectedCurrencies.map((currency, index) => (
-					<CurrencyBox key={index} code={currency} />
-				))}
 				<AddCurrencyBox loading={isLoading} supportCurrencies={data || []} />
 			</div>
 		</section>
