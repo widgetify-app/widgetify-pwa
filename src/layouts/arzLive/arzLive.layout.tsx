@@ -35,7 +35,7 @@ export function ArzLiveLayout() {
 					{jalaliMoment(updatedAt).format('jYYYY/jM/jD, HH:mm A')}
 				</span>
 			</div>
-			<div className="grid grid-cols-2 gap-2 p-1 overflow-scroll overflow-x-hidden h-96 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 scroll-smooth">
+			<div className="grid grid-cols-2 gap-2 p-1 overflow-scroll overflow-x-hidden overflow-y-auto h-96 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 scroll-smooth">
 				{selectedCurrencies.map((currency, index) => (
 					<CurrencyBox key={index} code={currency} />
 				))}
