@@ -1,4 +1,5 @@
-import Select, {InputActionMeta} from 'react-select'
+import { useRef ,useEffect } from 'react'
+import Select, {InputActionMeta, SelectInstance } from 'react-select'
 
 interface Option {
     value: string
@@ -24,6 +25,16 @@ interface MultiSelectDropdownProps {
     placeholder?: string
 }
 
+function isTouchCapable() {
+    try {
+        document.createEvent('TouchEvent');
+        return true;
+    } catch (e) {
+        console.log('notsp======')
+        return false;
+    }
+}
+
 export const MultiSelectDropdown = ({
 	options,
 	values,
@@ -31,6 +42,8 @@ export const MultiSelectDropdown = ({
 	onChange,
     placeholder,
 }: MultiSelectDropdownProps) => {
+    const selectRef = useRef<SelectInstance<Option> | null>(null)
+
     const handleChange = (selectedValue: any) => {
 		if (!selectedValue) return []
 		if (limit && selectedValue?.length > limit) return values
@@ -38,23 +51,66 @@ export const MultiSelectDropdown = ({
 		return onChange(selectedValuesMapped)
 	}
 
-    // Avoid input reset on select
-    // @see https://github.com/JedWatson/react-select/blob/06e34882638d1526b9f5a1238bb567a3e9460ce5/docs/examples/OnSelectResetsInput.tsx
+    // Avoid input reset on select item
+    // @see https://github.com/JedWatson/react-select/blob/master/storybook/stories/OnSelectKeepsInput.stories.tsx
     const handleInputChange = (
         inputValue: string,
         {action, prevInputValue}: InputActionMeta
     ) => (action === 'input-change') ? inputValue : prevInputValue
 
+    // I specifically avoided using the `blurInputOnSelect` prop because it causes
+    // an undesirable lag. When `blurInputOnSelect` is enabled, the input briefly gains
+    // focus and then blurs, which creates a flickering effect and feels unpolished.
+    // This custom solution ensures that the input never gains focus during events like
+    // "add" or "remove", while still allowing the user to focus it by clicking.
+    useEffect(() => {
+        if (selectRef.current) {
+
+            if (!selectRef.current.inputRef) {
+                return
+            }
+
+            // Override the focus method to prevent auto-focus
+            const originalFocus = selectRef.current.inputRef.focus
+            selectRef.current.inputRef.focus = () => null
+
+            // Override the onControlMouseDown method to temporarily restore the original focus
+            // behavior during user interactions (e.g., clicking on the search input)
+            const originalOnControlMouseDown = selectRef.current.onControlMouseDown
+            selectRef.current.onControlMouseDown = (...args) => {
+                if (!selectRef.current || !selectRef.current.inputRef) {
+                    return
+                }
+
+                selectRef.current.inputRef.focus = originalFocus
+                originalOnControlMouseDown(...args)
+                selectRef.current.inputRef.focus = () => null
+            }
+
+            // Cleanup on unmount
+            return () => {
+                if (selectRef.current) {
+                    selectRef.current.onControlMouseDown = originalOnControlMouseDown
+
+                    if (selectRef.current.inputRef) {
+                        selectRef.current.inputRef.focus = originalFocus
+                    }
+                }
+            }
+        }
+    }, [])
+
 	return (
 		<div className="relative custom-select-box">
 			<Select
+                ref={selectRef}
 				value={values}
                 options={options as any}
                 onChange={handleChange}
                 onInputChange={handleInputChange}
                 placeholder={placeholder}
                 isMulti={true}
-                autoFocus={true}
+                autoFocus={!isTouchCapable()}
 				menuIsOpen={true}
                 isClearable={false}
                 isSearchable={true}
