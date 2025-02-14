@@ -28,10 +28,10 @@ export function ArzLiveLayout() {
 	return (
 		<section className="p-2 mx-1 rounded lg:mx-4">
 			<div className="flex items-center justify-between w-full px-1">
-				<h2 className="text-lg font-semibold dark:text-gray-200 font-[balooTamma]">
+				<h2 className="text-lg font-semibold dark:text-gray-200 font-[balooTamma] w-full">
 					🪙 ArzLive
 				</h2>
-				<span className="text-xs text-gray-500 dark:text-gray-400 font-[balooTamma] font-semibold">
+				<span className="text-xs text-gray-500 dark:text-gray-400 font-[balooTamma] font-semibold  w-full text-end">
 					{jalaliMoment(updatedAt).format('jYYYY/jM/jD, HH:mm A')}
 				</span>
 			</div>
