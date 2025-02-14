@@ -1,9 +1,10 @@
-import {useContext, useState} from 'react'
-import {AiOutlineLoading} from 'react-icons/ai'
-import {TiPlus} from 'react-icons/ti'
+import { motion } from 'motion/react'
+import { useContext, useState } from 'react'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { TiPlus } from 'react-icons/ti'
 import Modal from '../../../components/modal'
-import {MultiSelectDropdown} from '../../../components/selectBox/multiSelectDropdown.component'
-import {storeContext} from '../../../context/setting.context'
+import { MultiSelectDropdown } from '../../../components/selectBox/multiSelectDropdown.component'
+import { storeContext } from '../../../context/setting.context'
 
 export type SupportedCurrencies = {
 	key: string
@@ -30,16 +31,28 @@ export const AddCurrencyBox = ({
 
 	return (
 		<>
-			<div
-				className={`flex flex-col items-center justify-between h-24 p-2 rounded-lg shadow-sm cursor-pointer bg-neutral-100 dark:bg-[#282828] ${disabled ? 'opacity-50' : 'hover:bg-gray-100 dark:hover:bg-neutral-800'}`}
-				onClick={() => (disabled ? null : setShowModal(true))}
+			<motion.div
+				whileHover={disabled ? {} : { scale: 1.02 }}
+				whileTap={disabled ? {} : { scale: 0.98 }}
+				className={`flex items-center justify-center h-24 p-3 rounded-xl bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 shadow-lg transition-all cursor-pointer
+          ${
+						disabled
+							? 'opacity-50 cursor-not-allowed'
+							: 'hover:shadow-xl hover:bg-opacity-90'
+					}`}
+				onClick={() => !disabled && setShowModal(true)}
 			>
-				<div className="flex items-center justify-center h-full gap-3 p-2 rounded-lg">
-					<h3 className="font-medium dark:text-gray-200">
-						{loading ? <AiOutlineLoading className="animate-spin" /> : <TiPlus />}
-					</h3>
+				<div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+					{loading ? (
+						<AiOutlineLoading className="w-6 h-6 animate-spin" />
+					) : (
+						<>
+							<TiPlus className="w-6 h-6" />
+						</>
+					)}
 				</div>
-			</div>
+			</motion.div>
+
 			<SelectCurrencyModal
 				show={showModal}
 				setShow={setShowModal}
@@ -77,7 +90,7 @@ export function SelectCurrencyModal({
 						options={getCurrencyOptions(supportCurrencies) as any}
 						values={getSelectedCurrencies(selectedCurrencies, supportCurrencies)}
 						onChange={(values) => onCurrencyChange(values)}
-						placeholder={"جستجو ..."}
+						placeholder={'جستجو ...'}
 					/>
 				</div>
 
