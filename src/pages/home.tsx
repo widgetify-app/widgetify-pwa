@@ -20,8 +20,8 @@ export function HomePage() {
 	const [selectedCity, setSelectedCity] = useState<SelectedCity>(
 		city || {
 			city: 'Tehran',
-			lat: 35.6895,
-			lon: 51.3896,
+			lat: 35.6892523,
+			lon: 51.3896004,
 		},
 	)
 
