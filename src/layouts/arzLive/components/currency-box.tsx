@@ -15,7 +15,9 @@ interface CurrencyBoxProps {
 }
 
 export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
-	const { data, refetch, dataUpdatedAt } = useGetCurrencyByCode(code)
+	const { data, dataUpdatedAt } = useGetCurrencyByCode(code, {
+		refetchInterval: ms('3m'),
+	})
 	const [currency, setCurrency] = useState<FetchedCurrency | null>(
 		getFromStorage<FetchedCurrency>(`currency:${code}`) || null,
 	)
@@ -35,14 +37,6 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 		stiffness: 100,
 		damping,
 	})
-
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			refetch()
-		}, ms('3m'))
-
-		return () => clearInterval(intervalId)
-	}, [refetch])
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {

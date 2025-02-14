@@ -19,11 +19,15 @@ export interface PriceHistory {
 	createdAt: string
 }
 
-export const useGetCurrencyByCode = (currency: string) => {
+export const useGetCurrencyByCode = (
+	currency: string,
+	options: { refetchInterval: number | null },
+) => {
 	return useQuery<FetchedCurrency>({
 		queryKey: [`currency-${currency}`],
 		queryFn: async () => getSupportCurrencies(currency),
 		retry: 0,
+		refetchInterval: options.refetchInterval || false,
 	})
 }
 
