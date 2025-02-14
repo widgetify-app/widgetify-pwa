@@ -12,7 +12,9 @@ interface WeatherOptionsModalProps {
 
 export function WeatherOptionsModal({ onClose, show }: WeatherOptionsModalProps) {
 	const { setSelectedCity, selectedCity } = useContext(storeContext)
+
 	const [inputValue, setInputValue] = useState<string | null>('')
+
 	const { data: relatedCities, isSuccess } = useGetRelatedCities(inputValue || '')
 
 	const handleInputChange = (value: string) => {
@@ -42,7 +44,7 @@ export function WeatherOptionsModal({ onClose, show }: WeatherOptionsModalProps)
 		if (!city.lat || !city.lon) return
 
 		setSelectedCity(city)
-		setToStorage(StoreKey.SELECTED_CITY, JSON.stringify(city))
+		setToStorage(StoreKey.SELECTED_CITY, city)
 
 		setInputValue(null)
 		onClose()

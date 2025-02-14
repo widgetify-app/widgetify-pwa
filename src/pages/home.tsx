@@ -17,7 +17,6 @@ export function HomePage() {
 	)
 
 	const city = getFromStorage<SelectedCity>(StoreKey.SELECTED_CITY)
-	console.log('city: ', city, typeof city)
 	const [selectedCity, setSelectedCity] = useState<SelectedCity>(
 		city || {
 			city: 'Tehran',
