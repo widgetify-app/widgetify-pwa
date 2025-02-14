@@ -3,8 +3,9 @@ import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { PwaInstallerModal } from '../components/pwaInstaller-modal'
 import { UpdateAvailableModal } from '../components/updateAvailable-moda'
-import { storeContext } from '../context/setting.context'
+import { type SelectedCity, storeContext } from '../context/setting.context'
 import { ArzLiveLayout } from '../layouts/arzLive/arzLive.layout'
+import { WeatherLayout } from '../layouts/weather/weather.layout'
 
 export function HomePage() {
 	const defaultCurrencies = ['USD', 'EUR', 'GRAM']
@@ -13,6 +14,16 @@ export function HomePage() {
 		storedCurrencies && storedCurrencies.length > 0
 			? storedCurrencies
 			: defaultCurrencies,
+	)
+
+	const city = getFromStorage<SelectedCity>(StoreKey.SELECTED_CITY)
+	console.log('city: ', city, typeof city)
+	const [selectedCity, setSelectedCity] = useState<SelectedCity>(
+		city || {
+			city: 'Tehran',
+			lat: 35.6895,
+			lon: 51.3896,
+		},
 	)
 
 	const [showPwaModal, setShowPwaModal] = useState(false)
@@ -61,9 +72,12 @@ export function HomePage() {
 			value={{
 				selectedCurrencies,
 				setSelectedCurrencies,
+				selectedCity,
+				setSelectedCity,
 			}}
 		>
 			<ArzLiveLayout />
+			<WeatherLayout />
 			<PwaInstallerModal show={showPwaModal} onClose={() => setShowPwaModal(false)} />
 			<UpdateAvailableModal
 				onClose={() => toggleUpdateModal()}
