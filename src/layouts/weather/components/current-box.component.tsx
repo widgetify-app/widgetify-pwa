@@ -42,17 +42,32 @@ export function CurrentWeatherBox({ weather }: CurrentWeatherBoxProps) {
 			</div>
 
 			<div className="relative p-3 mt-4 rounded-lg bg-gray-100/80 dark:bg-neutral-800/50">
-				{weather.ai?.description && (
-					<div className="absolute -translate-y-1/2 left-3 top-1/2">
-						<BsRobot size={20} className="text-purple-600 dark:text-purple-400" />
+				<div className="flex items-center gap-3">
+					<div className="flex-1">
+						{weather.ai?.description && (
+							<div className="absolute left-3 top-3">
+								<BsRobot size={20} className="text-purple-600 dark:text-purple-400" />
+							</div>
+						)}
+						<p
+							className="pl-8 pr-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300"
+							dir="rtl"
+						>
+							{weather.ai?.description || weather.temperature.temp_description}
+						</p>
+						{weather.ai?.playlist && (
+							<a
+								href={weather.ai.playlist}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="inline-flex items-center gap-2 mt-2 text-xs text-purple-600 dark:text-purple-400 hover:underline"
+							>
+								<span>🎵</span>
+								<span>پلی‌لیست پیشنهادی</span>
+							</a>
+						)}
 					</div>
-				)}
-				<p
-					className="pl-8 pr-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300"
-					dir="rtl"
-				>
-					{weather.ai?.description || weather.temperature.temp_description}
-				</p>
+				</div>
 			</div>
 		</div>
 	)
