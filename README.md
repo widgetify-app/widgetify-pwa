@@ -3,7 +3,7 @@
 
 لینک سایت: [app.widgetify.ir](https://app.widgetify.ir)
 
-![alt text](.github/images/image.png)
+![Group 41](https://github.com/user-attachments/assets/ef8c2e5d-41af-42f0-99ec-26fc07253a5f)
 
 ## مشارکت
 ما از مشارکت شما استقبال می‌کنیم! برای مشارکت در پروژه، مراحل زیر را دنبال کنید:
