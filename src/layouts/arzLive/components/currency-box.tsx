@@ -159,7 +159,7 @@ export const CurrencyBox = ({ code }: CurrencyBoxProps) => {
 					</motion.div>
 					{/* // ) : null} */}
 					<motion.p
-						className="text-lg font-bold text-right text-gray-800 dark:text-gray-100"
+						className="text-lg font-bold leading-none text-right text-gray-800 dark:text-gray-100"
 						animate={{ scale: [1, 1.02, 1] }}
 						transition={{ duration: 0.3 }}
 					>
