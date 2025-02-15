@@ -15,7 +15,11 @@ export function WeatherOptionsModal({ onClose, show }: WeatherOptionsModalProps)
 
 	const [inputValue, setInputValue] = useState<string | null>('')
 
-	const { data: relatedCities, isSuccess } = useGetRelatedCities(inputValue || '')
+	const {
+		data: relatedCities,
+		isSuccess,
+		isLoading,
+	} = useGetRelatedCities(inputValue || '')
 
 	const handleInputChange = (value: string) => {
 		if (value === '') {
@@ -26,7 +30,7 @@ export function WeatherOptionsModal({ onClose, show }: WeatherOptionsModalProps)
 		// delay the request to prevent too many requests
 		setTimeout(() => {
 			setInputValue(value)
-		}, 2000) // 2 seconds
+		}, 1000) // 1 seconds
 	}
 
 	function handleSelect(selected: string) {
@@ -94,6 +98,11 @@ export function WeatherOptionsModal({ onClose, show }: WeatherOptionsModalProps)
 						</div>
 					)}
 				</div>
+				{isLoading && (
+					<div className="flex items-center justify-center p-2">
+						<div className="w-6 h-6 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
+					</div>
+				)}
 				{isSuccess && relatedCities && relatedCities.length > 0 && (
 					<div className="p-2">
 						{relatedCities.map((city) => (
