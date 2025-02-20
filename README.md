@@ -2,8 +2,8 @@
 ویجتیفای یک پلتفرم متن باز است که دارای لیستی از ویجت های کاربردی برای وب است. 
 
 لینک سایت: [app.widgetify.ir](https://app.widgetify.ir)
+![Group 43](https://github.com/user-attachments/assets/b21fd2ae-a069-4a69-9296-5f73e9d66d2f)
 
-<img width="2369" alt="banner" src="https://github.com/user-attachments/assets/f3c6c3b2-2916-4349-bb5f-5c137f58c71f" />
 
 
 ## مشارکت
