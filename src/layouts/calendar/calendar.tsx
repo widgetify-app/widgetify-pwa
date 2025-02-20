@@ -50,20 +50,20 @@ export const PersianCalendar: React.FC = () => {
 		<div className="grid gap-4 md:grid-cols-5" dir="rtl">
 			<div className="p-4 md:col-span-3 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-xl backdrop-blur-sm lg:h-96">
 				<div className="flex items-center justify-between mb-4">
-					<h3 className="text-xl font-medium text-gray-200">
+					<h3 className="text-xl font-medium text-gray-500 dark:text-gray-100">
 						{PERSIAN_MONTHS[currentDate.jMonth()]} {currentDate.jYear()}
 					</h3>
 					<div className="flex gap-2">
 						<button
 							onClick={() => changeMonth(-1)}
-							className="flex flex-row-reverse items-center gap-1 p-2 text-gray-400 rounded-lg hover:text-gray-200 hover:bg-gray-700/50"
+							className="flex flex-row-reverse items-center gap-1 p-2 text-gray-500 rounded-lg dark:text-gray-200 hover:text-gray-200 hover:bg-gray-700/50"
 						>
 							ماه قبل
 							<FaChevronRight />
 						</button>
 						<button
 							onClick={() => changeMonth(1)}
-							className="flex flex-row-reverse items-center gap-1 p-2 text-gray-400 rounded-lg hover:text-gray-200 hover:bg-gray-700/50"
+							className="flex flex-row-reverse items-center gap-1 p-2 text-gray-500 rounded-lg dark:text-gray-200 hover:text-gray-200 hover:bg-gray-700/50"
 						>
 							<FaChevronLeft />
 							ماه بعد
@@ -73,7 +73,10 @@ export const PersianCalendar: React.FC = () => {
 
 				<div className="grid grid-cols-7 gap-2">
 					{WEEKDAYS.map((day) => (
-						<div key={day} className="py-2 text-xs text-center text-gray-400">
+						<div
+							key={day}
+							className="py-2 text-xs text-center text-gray-500 dark:text-gray-200"
+						>
 							{day}
 						</div>
 					))}
@@ -99,7 +102,7 @@ export const PersianCalendar: React.FC = () => {
 			</div>
 
 			<div className="p-4 md:col-span-2 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-xl backdrop-blur-sm">
-				<h3 className="mb-4 text-xl font-medium text-gray-200">
+				<h3 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-100">
 					{PERSIAN_MONTHS[selectedDate.jMonth()]} {selectedDate.jDate()}
 				</h3>
 
@@ -117,7 +120,7 @@ const CalendarLayout = () => {
 	return (
 		<section className="p-2 mx-1 overflow-y-auto  rounded lg:mx-4 max-h-[calc(100vh-4rem)]">
 			<div className="flex items-center justify-between w-full px-1 mb-4">
-				<h2 className="text-lg font-semibold text-gray-200 font-[balooTamma]">
+				<h2 className="text-lg font-semibold dark:text-gray-200 font-[balooTamma]">
 					📅 Calender
 				</h2>
 				<div

@@ -33,7 +33,7 @@ export function Events({ events, currentDate }: Prop) {
 
 	return (
 		<div>
-			<h4 className="mb-2 text-lg text-gray-300">رویدادها</h4>
+			<h4 className="mb-2 text-lg text-gray-500 dark:text-gray-400">رویدادها</h4>
 			<div className="h-40 space-y-3 overflow-y-auto lg:h-32">
 				{selectedEvents.length > 0 ? (
 					selectedEvents.map((event, index) => (
