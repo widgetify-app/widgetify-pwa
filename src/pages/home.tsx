@@ -6,6 +6,7 @@ import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
 import { type SelectedCity, storeContext } from '../context/setting.context'
 import { ArzLiveLayout } from '../layouts/arzLive/arzLive.layout'
+import CalendarLayout from '../layouts/calendar/calendar'
 import { WeatherLayout } from '../layouts/weather/weather.layout'
 
 type LayoutItem = {
@@ -32,13 +33,17 @@ export function HomePage() {
 	)
 
 	const initialLayouts: LayoutItem[] = [
+		// {
+		// 	id: 'arz-live',
+		// 	component: <ArzLiveLayout />,
+		// },
+		// {
+		// 	id: 'weather',
+		// 	component: <WeatherLayout />,
+		// },
 		{
-			id: 'arz-live',
-			component: <ArzLiveLayout />,
-		},
-		{
-			id: 'weather',
-			component: <WeatherLayout />,
+			id: 'calendar',
+			component: <CalendarLayout />,
 		},
 	]
 
