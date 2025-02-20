@@ -7,24 +7,19 @@ export interface PageLink {
 
 export function NavbarLayout(): JSX.Element {
 	return (
-		<nav className="flex items-center justify-between px-4 py-2 mb-5 shadow-sm">
-			<div className="flex items-center gap-1 ">
-				<h1 className="text-3xl  text-blue-400 font-[balooTamma] tracking-wide font-extrabold">
-					Widgetify
-				</h1>
-				<p className="text-xs text-blue-400 font-[balooTamma] mt-1">v0</p>
+		<nav className="flex items-center justify-between px-5 py-3">
+			<div className="flex items-center">
+				<h1 className="text-2xl text-blue-400 font-[balooTamma]">Widgetify</h1>
 			</div>
-			<div>
-				<a
-					href="https://github.com/widgetify-app/widgetify-pwa"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<div className="hover:bg-[#333] p-2 rounded-md cursor-pointer">
-						<FaGithub className="text-2xl text-gray-500" />
-					</div>
-				</a>
-			</div>
+
+			<a
+				href="https://github.com/widgetify-app/widgetify-pwa"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="flex items-center justify-center w-10 h-10 bg-[#1e1e1e] rounded-xl text-gray-400 hover:text-gray-300 hover:bg-[#252525] transition-colors"
+			>
+				<FaGithub size={22} />
+			</a>
 		</nav>
 	)
 }
