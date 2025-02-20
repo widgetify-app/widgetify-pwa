@@ -49,7 +49,7 @@ export const PersianCalendar: React.FC = () => {
 	const { todos } = useTodo()
 	return (
 		<div className="grid gap-4 md:grid-cols-5" dir="rtl">
-			<div className="p-4 md:col-span-3 bg-gray-800/50 rounded-xl backdrop-blur-sm lg:h-96">
+			<div className="p-4 md:col-span-3 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-xl backdrop-blur-sm lg:h-96">
 				<div className="flex items-center justify-between mb-4">
 					<h3 className="text-xl font-medium text-gray-200">
 						{PERSIAN_MONTHS[currentDate.jMonth()]} {currentDate.jYear()}
@@ -99,7 +99,7 @@ export const PersianCalendar: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="p-4 md:col-span-2 bg-gray-800/50 rounded-xl backdrop-blur-sm">
+			<div className="p-4 md:col-span-2 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-xl backdrop-blur-sm">
 				<h3 className="mb-4 text-xl font-medium text-gray-200">
 					{PERSIAN_MONTHS[selectedDate.jMonth()]} {selectedDate.jDate()}
 				</h3>
