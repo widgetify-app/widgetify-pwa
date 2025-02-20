@@ -33,14 +33,14 @@ export function HomePage() {
 	)
 
 	const initialLayouts: LayoutItem[] = [
-		// {
-		// 	id: 'arz-live',
-		// 	component: <ArzLiveLayout />,
-		// },
-		// {
-		// 	id: 'weather',
-		// 	component: <WeatherLayout />,
-		// },
+		{
+			id: 'arz-live',
+			component: <ArzLiveLayout />,
+		},
+		{
+			id: 'weather',
+			component: <WeatherLayout />,
+		},
 		{
 			id: 'calendar',
 			component: <CalendarLayout />,

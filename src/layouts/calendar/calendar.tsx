@@ -2,6 +2,7 @@ import jalaliMoment from 'jalali-moment'
 import type React from 'react'
 import { useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
+import { TodoProvider, useTodo } from '../../context/todo.context'
 import { useGetEvents } from '../../services/getMethodHooks/getEvents.hook'
 import { DayItem } from './components/day'
 import { Events } from './components/events/event'
@@ -45,7 +46,7 @@ export const PersianCalendar: React.FC = () => {
 
 	const selectedDateStr = formatDateStr(selectedDate)
 
-	const todos: Todo[] = []
+	const { todos } = useTodo()
 	return (
 		<div className="grid gap-4 md:grid-cols-5" dir="rtl">
 			<div className="p-4 md:col-span-3 bg-gray-800/50 rounded-xl backdrop-blur-sm lg:h-96">
@@ -127,7 +128,9 @@ const CalendarLayout = () => {
 					<span>-</span>
 				</div>
 			</div>
-			<PersianCalendar />
+			<TodoProvider>
+				<PersianCalendar />
+			</TodoProvider>
 		</section>
 	)
 }

@@ -1,12 +1,7 @@
 import jalaliMoment from 'jalali-moment'
 import type { FetchedAllEvents } from '../../../services/getMethodHooks/getEvents.hook'
 import type { Todo } from '../interface/todo.interface'
-import {
-	convertShamsiToHijri,
-	formatDateStr,
-	getHijriEvents,
-	getShamsiEvents,
-} from '../utils'
+import { formatDateStr, getHijriEvents, getShamsiEvents } from '../utils'
 interface DayItemProps {
 	day: number
 	currentDate: jalaliMoment.Moment

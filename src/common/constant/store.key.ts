@@ -5,5 +5,6 @@ export enum StoreKey {
 	SELECTED_CITY = 'SELECTED_CITY',
 	CURRENT_WEATHER = 'CURRENT_WEATHER',
 	LAYOUT_ORDER = 'LAYOUT_ORDER',
+	Todos = 'Todos',
 }
 export type StoreKeyType = StoreKey | `currency:${string}`
