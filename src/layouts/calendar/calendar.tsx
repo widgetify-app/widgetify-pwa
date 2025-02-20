@@ -7,7 +7,6 @@ import { useGetEvents } from '../../services/getMethodHooks/getEvents.hook'
 import { DayItem } from './components/day'
 import { Events } from './components/events/event'
 import { Todos } from './components/todos/todos'
-import type { Todo } from './interface/todo.interface'
 import { formatDateStr } from './utils'
 
 const PERSIAN_MONTHS = [
