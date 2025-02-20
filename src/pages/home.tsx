@@ -1,11 +1,18 @@
+import { DragDropContext, Draggable, type DropResult, Droppable } from '@hello-pangea/dnd'
 import { useEffect, useState } from 'react'
+import { RxDragHandleDots2 } from 'react-icons/rx'
+
 import { StoreKey } from '../common/constant/store.key'
 import { getFromStorage, setToStorage } from '../common/storage'
-import { PwaInstallerModal } from '../components/pwaInstaller-modal'
-import { UpdateAvailableModal } from '../components/updateAvailable-modal'
 import { type SelectedCity, storeContext } from '../context/setting.context'
 import { ArzLiveLayout } from '../layouts/arzLive/arzLive.layout'
+import CalendarLayout from '../layouts/calendar/calendar'
 import { WeatherLayout } from '../layouts/weather/weather.layout'
+
+type LayoutItem = {
+	id: string
+	component: React.ReactNode
+}
 
 export function HomePage() {
 	const defaultCurrencies = ['USD', 'EUR', 'GRAM']
@@ -25,42 +32,46 @@ export function HomePage() {
 		},
 	)
 
-	const [showPwaModal, setShowPwaModal] = useState(false)
-	const [showUpdateModal, setShowUpdateModal] = useState(false)
+	const initialLayouts: LayoutItem[] = [
+		{
+			id: 'arz-live',
+			component: <ArzLiveLayout />,
+		},
+		{
+			id: 'weather',
+			component: <WeatherLayout />,
+		},
+		{
+			id: 'calendar',
+			component: <CalendarLayout />,
+		},
+	]
 
-	useEffect(() => {
-		const isStandalone =
-			window.matchMedia('(display-mode: standalone)').matches ||
-			//@ts-ignore
-			window.navigator.standalone
-
-		const hasShownPwaModal = getFromStorage(StoreKey.hasShownPwaModal)
-
-		if (!isStandalone && !hasShownPwaModal) {
-			const timer = setTimeout(() => {
-				setShowPwaModal(true)
-				setToStorage(StoreKey.hasShownPwaModal, true)
-			}, 10000) // Show modal after 10 seconds
-
-			return () => clearTimeout(timer)
+	const storedOrder = getFromStorage<string[]>(StoreKey.LAYOUT_ORDER)
+	const [layouts, setLayouts] = useState<LayoutItem[]>(() => {
+		if (storedOrder) {
+			return storedOrder
+				.map((id) => initialLayouts.find((layout) => layout.id === id))
+				.filter((layout): layout is LayoutItem => layout !== undefined)
 		}
-	}, [])
+		return initialLayouts
+	})
 
-	function toggleUpdateModal() {
-		setShowUpdateModal(!showUpdateModal)
+	const onDragEnd = (result: DropResult) => {
+		const { destination, source } = result
+
+		if (!destination) return
+
+		const items = Array.from(layouts)
+		const [reorderedItem] = items.splice(source.index, 1)
+		items.splice(destination.index, 0, reorderedItem)
+
+		setLayouts(items)
+		setToStorage(
+			StoreKey.LAYOUT_ORDER,
+			items.map((item) => item.id),
+		)
 	}
-
-	function onInstall() {
-		window.location.reload()
-	}
-
-	useEffect(() => {
-		window.addEventListener('update-available', toggleUpdateModal)
-
-		return () => {
-			window.removeEventListener('update-available', toggleUpdateModal)
-		}
-	}, [])
 
 	useEffect(() => {
 		setToStorage(StoreKey.CURRENCIES, selectedCurrencies)
@@ -75,14 +86,36 @@ export function HomePage() {
 				setSelectedCity,
 			}}
 		>
-			<ArzLiveLayout />
-			<WeatherLayout />
-			<PwaInstallerModal show={showPwaModal} onClose={() => setShowPwaModal(false)} />
-			<UpdateAvailableModal
-				onClose={() => toggleUpdateModal()}
-				show={showUpdateModal}
-				onInstall={() => onInstall()}
-			/>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Droppable droppableId="layouts">
+					{(provided) => (
+						<div
+							{...provided.droppableProps}
+							ref={provided.innerRef}
+							className="space-y-4"
+						>
+							{layouts.map((layout, index) => (
+								<Draggable key={layout.id} draggableId={layout.id} index={index}>
+									{(provided) => (
+										<div ref={provided.innerRef} {...provided.draggableProps}>
+											<div {...provided.dragHandleProps} className="p-2 cursor-move w-60">
+												<RxDragHandleDots2
+													className="text-gray-700 dark:text-gray-300"
+													size={20}
+												/>
+											</div>
+											<div>
+												<div>{layout.component}</div>
+											</div>
+										</div>
+									)}
+								</Draggable>
+							))}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
 		</storeContext.Provider>
 	)
 }
