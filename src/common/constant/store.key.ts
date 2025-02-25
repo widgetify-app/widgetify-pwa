@@ -1,10 +1,15 @@
-export enum StoreKey {
-	CURRENCIES = 'CURRENCIES',
-	hasShownPwaModal = 'hasShownPwaModal',
-	CURRENCY_UPDATED_AT = 'CURRENCY_UPDATED_AT',
-	SELECTED_CITY = 'SELECTED_CITY',
-	CURRENT_WEATHER = 'CURRENT_WEATHER',
-	LAYOUT_ORDER = 'LAYOUT_ORDER',
-	Todos = 'Todos',
+import type { SelectedCity } from '../../context/setting.context'
+import type { Todo } from '../../layouts/calendar/interface/todo.interface'
+import type { FetchedCurrency } from '../../services/getMethodHooks/getCurrencyByCode.hook'
+import type { FetchedWeather } from '../../services/getMethodHooks/weather/weather.interface'
+
+export interface StorageKV {
+  CURRENCIES: string[]
+  hasShownPwaModal: boolean
+  CURRENCY_UPDATED_AT: string
+  SELECTED_CITY: SelectedCity
+  CURRENT_WEATHER: FetchedWeather
+  LAYOUT_ORDER: string[]
+  Todos: Todo[]
+  [key: `currency:${string}`]: FetchedCurrency
 }
-export type StoreKeyType = StoreKey | `currency:${string}`

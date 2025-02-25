@@ -1,15 +1,15 @@
-import type { StoreKeyType } from './constant/store.key'
+import type { StorageKV } from './constant/store.key'
 
-export function setToStorage<T>(key: StoreKeyType, value: T) {
-	localStorage.setItem(key, JSON.stringify(value))
+export function setToStorage<K extends keyof StorageKV>(key: K, value: StorageKV[K]) {
+  localStorage.setItem(key, JSON.stringify(value))
 }
 
-export function getFromStorage<T>(key: StoreKeyType): T | null {
-	const value = localStorage.getItem(key)
-	if (!value) return null
-	try {
-		return JSON.parse(value) as T
-	} catch {
-		return value as T
-	}
+export function getFromStorage<K extends keyof StorageKV>(key: K): StorageKV[K] | null {
+  const value = localStorage.getItem(key)
+  if (!value) return null
+  try {
+    return JSON.parse(value)
+  } catch {
+    return null
+  }
 }
