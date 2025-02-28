@@ -6,12 +6,8 @@ interface Props {
 }
 
 export function PageWrapper(props: Props) {
-	const ios =
-		typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
-	const paddingBottom = ios ? 'pb-25 pt-25' : 'pb-4'
-
 	return (
-		<div className={`h-screen overflow-y-auto ${paddingBottom}`}>
+		<div className={'h-screen overflow-y-auto'}>
 			{/* <userContext.Provider value={userContextValue}> */}
 			<NavbarLayout />
 			{props.children}
