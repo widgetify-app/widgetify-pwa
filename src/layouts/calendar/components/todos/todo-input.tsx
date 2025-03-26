@@ -6,7 +6,7 @@ interface Prop {
 
 export function TodoInput({ onAdd }: Prop) {
 	const [text, setText] = useState('')
-
+	
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		if (text.trim()) {
@@ -14,19 +14,19 @@ export function TodoInput({ onAdd }: Prop) {
 			setText('')
 		}
 	}
-
+	
 	return (
-		<form onSubmit={handleSubmit} className="flex gap-2 mb-4">
+		<form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 mb-4">
 			<input
 				type="text"
 				value={text}
 				onChange={(e) => setText(e.target.value)}
 				placeholder="یادداشت جدید..."
-				className="flex-1 px-3 py-2 text-gray-600 placeholder-gray-500 rounded-lg dark:placeholder-gray-500/80 dark:text-gray-300 bg-gray-300/50 dark:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 "
+				className="flex-1 px-3 py-2 text-gray-600 placeholder-gray-500 rounded-lg dark:placeholder-gray-500/80 dark:text-gray-300 bg-gray-300/50 dark:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
 			/>
 			<button
 				type="submit"
-				className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
+				className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600 sm:w-auto w-full"
 			>
 				افزودن
 			</button>
